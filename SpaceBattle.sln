@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle.Lib", "SpaceBattle.Lib\SpaceBattle.Lib.csproj", "{13350452-C2AC-4DDE-A84C-C9B2D8795ABF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceBattle.Tests", "SpaceBattle.Tests\SpaceBattle.Tests.csproj", "{21519DAD-5E46-4569-AE64-E2C56FBD882A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13350452-C2AC-4DDE-A84C-C9B2D8795ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13350452-C2AC-4DDE-A84C-C9B2D8795ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13350452-C2AC-4DDE-A84C-C9B2D8795ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13350452-C2AC-4DDE-A84C-C9B2D8795ABF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21519DAD-5E46-4569-AE64-E2C56FBD882A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21519DAD-5E46-4569-AE64-E2C56FBD882A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21519DAD-5E46-4569-AE64-E2C56FBD882A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21519DAD-5E46-4569-AE64-E2C56FBD882A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
