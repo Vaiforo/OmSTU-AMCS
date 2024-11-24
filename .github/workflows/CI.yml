@@ -33,10 +33,7 @@ jobs:
       - name: Build
         run: dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
 
-      - name: Test
-        run: cd SpaceBattle.Tests/ &&  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-
-      - name: Coverage
+      - name: Coverage and Tests
         run: dotnet coverlet SpaceBattle.Tests/bin/Debug/net8.0/SpaceBattle.Tests.dll --target "dotnet" --targetargs "test --no-build" -f=opencover -o="coverage.xml"
 
       - name: Checkstyle
