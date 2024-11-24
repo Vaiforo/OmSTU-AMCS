@@ -31,7 +31,7 @@ jobs:
         run: cd SpaceBattle.Tests/ &&  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
       - name: Coverage
-        run: cd SpaceBattle.Tests/ &&  dotnet test --collect:"XPlat Code Coverage" 
+        run: cd SpaceBattle.Tests/ &&  dotnet test --configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:Exclude="[MyAppName.DebugHost]*%2c[MyAppNamet.WebHost]*%2c[MyAppName.App]*"
 
       - name: Checkstyle
         run: dotnet format --verify-no-changes
