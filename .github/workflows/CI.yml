@@ -26,8 +26,13 @@ jobs:
 
       - name: Build
         run: dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
+
       - name: Test
         run: cd SpaceBattle.Tests/ &&  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+
+      - name: Coverage
+        run: cd SpaceBattle.Tests/ &&  dotnet test --collect:"XPlat Code Coverage" 
+
       - name: Checkstyle
         run: dotnet format --verify-no-changes
  
