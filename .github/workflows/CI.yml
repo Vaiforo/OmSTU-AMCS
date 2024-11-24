@@ -22,12 +22,12 @@ jobs:
           dotnet-version: 8.0.x
  
       - name: Restore dependencies
-        run: cd SpaceBattle && dotnet restore SpaceBattle.Tests
+        run: dotnet restore SpaceBattle.Tests
 
       - name: Build
-        run: cd SpaceBattle && dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
+        run: dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
       - name: Test
-        run: cd SpaceBattle/SpaceBattle.Tests/ &&  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+        run: cd SpaceBattle.Tests/ &&  dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       - name: Checkstyle
-        run: cd SpaceBattle && dotnet format --verify-no-changes
+        run: dotnet format --verify-no-changes
  
