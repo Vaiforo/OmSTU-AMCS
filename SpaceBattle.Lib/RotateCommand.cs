@@ -12,6 +12,5 @@ public class RotateCommand : ICommand
     public void Execute()
     {
         rotatingObject.Angle += rotatingObject.AngleVelocity;
-        //rotatingObject.Angle.degrees = Angle.summ(rotatingObject.Angle, rotatingObject.AngleVelocity).degrees;
     }
 }
