@@ -24,6 +24,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore SpaceBattle.Tests
 
+      - name: Install Required Tools
+        run: |
+          dotnet new tool-manifest
+          dotnet tool install dotnet-coverage
+          dotnet tool install coverlet.console
+
       - name: Build
         run: dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
 
