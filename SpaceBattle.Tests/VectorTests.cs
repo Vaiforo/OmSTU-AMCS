@@ -80,6 +80,23 @@ public class VectorTests
     }
 
     [Fact]
+    public void ObjectEqualNullNegativeTest()
+    {
+        int[] coords1 = [1, 2, 3];
+        var vector1 = new Vector(coords1);
+        Assert.False(vector1.Equals(null));
+    }
+
+    [Fact]
+    public void ObjectEqualNotVectorNegativeTest()
+    {
+        int[] coords1 = [1, 2, 3];
+        var vector1 = new Vector(coords1);
+        object notVector = "not a vector";
+        Assert.False(vector1.Equals(notVector));
+    }
+
+    [Fact]
     public void OperatorAddPositiveTest()
     {
         int[] coords1 = [1, 2];
