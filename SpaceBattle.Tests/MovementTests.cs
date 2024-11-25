@@ -1,5 +1,5 @@
+﻿using Moq;
 using SpaceBattle.Lib;
-using Moq;
 
 namespace SpaceBattle.Tests;
 

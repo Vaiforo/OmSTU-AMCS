@@ -4,7 +4,6 @@
     {
         private int[] coords;
 
-
         public Vector(params int[] coords)
         {
             this.coords = coords;
@@ -17,7 +16,7 @@
                 throw new InvalidDataException("Vectors must have the same length");
             }
 
-            Vector result = new Vector(new int[vector1.coords.Length]);
+            var result = new Vector(new int[vector1.coords.Length]);
             result.coords = vector1.coords.Select((value, index) => value + vector2.coords[index]).ToArray();
             return result;
         }
