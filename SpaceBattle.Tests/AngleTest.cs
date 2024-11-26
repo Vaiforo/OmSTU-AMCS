@@ -3,45 +3,110 @@ namespace SpaceBattle.Tests;
 
 public class AngleTest
 {
-[Fact]
-    public void ConstructorShouldNormalizeDegreesWhenDegreesIsNegativeTest()
+    [Fact]
+    public void ObjectInitPositiveTest()
     {
-        int degrees = -45;
-
-        Angle angle = new Angle(degrees);
-
-        Assert.Equal(315, angle.degrees);
+        Angle a = new Angle(1, 3);
+        int degrees = 1;
+        int sectors = 3;
+        Assert.True(degrees.Equals(1));
+        Assert.True(sectors.Equals(3));
     }
 
     [Fact]
-    public void ConstructorShouldNormalizeDegreesWhenDegreesIsGreaterThan360Test()
+    public void ObjectInitNegativeTest()
     {
-        int degrees = 450;
+        Assert.Throws<ArgumentException>(() => new Angle(5, 3));
+    }
 
-        Angle angle = new Angle(degrees);
 
-        Assert.Equal(90, angle.degrees);
+
+    [Fact]
+    public void AnglesEqualPositiveTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(1, 3);
+        Assert.True(a.Equals(b));
     }
 
     [Fact]
-    public void AddShouldReturnCorrectSumWhenAddingTwoAnglesTest()
+    public void AnglesEqualNegativeTest()
     {
-        Angle angle1 = new Angle(30);
-        Angle angle2 = new Angle(45);
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(1, 4);
+        Assert.False(a.Equals(b));
+    }
 
-        Angle result = angle1 + angle2;
-
-        Assert.Equal(75, result.degrees); 
+    
+    [Fact]
+    public void AttemptingToAddValueAnglePoditiveTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle expA = new Angle(-1, 3);
+        Assert.True(res.Equals(expA));
     }
 
     [Fact]
-    public void AddShouldNormalizeSumWhenResultIsGreaterThan360Test()
+    public void AttemptingToAddValueAngleNegativeTest()
     {
-        Angle angle1 = new Angle(350);
-        Angle angle2 = new Angle(20);
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle unexpA = new Angle(-2, 3);
+        Assert.False(res.Equals(unexpA));
+    }
 
-        Angle result = angle1 + angle2;
+    [Fact]
+    public void AttemptingToOperandPositiveTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle unexpA = new Angle(-1, 3);
+        Assert.True(res == unexpA);
+    }
+    [Fact]
+    public void AttemptingToOperandNegativeTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle unexpA = new Angle(-2, 3);
+        Assert.False(res == unexpA);
+    }
+    [Fact]
+    public void AttemptingToNegativeOperandNegativeTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle unexpA = new Angle(-1, 3);
+        Assert.False(res != unexpA);
+    }
+    [Fact]
+    public void AttemptingToNegativeOperandPositiveTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(-2, 3);
+        Angle res = a + b;
+        Angle unexpA = new Angle(-2, 3);
+        Assert.True(res != unexpA);
+    }
 
-        Assert.Equal(10, result.degrees);
+    [Fact]
+    public void AttemptingToGetHashCodePositiveTest()
+    {
+        Angle a = new Angle(1, 3);
+        Angle b = new Angle(1, 3);
+        Assert.True(a.GetHashCode == a.GetHashCode);
+    }
+
+        [Fact]
+    public void AttemptingToGetHashCodeNegativeTest()
+    {
+        Angle a = new Angle(1, 3);
+        Assert.False(a.GetHashCode == new Angle(1, 3).GetHashCode);
     }
 }
