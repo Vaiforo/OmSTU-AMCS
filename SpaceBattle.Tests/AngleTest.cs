@@ -6,9 +6,9 @@ public class AngleTest
     [Fact]
     public void ObjectInitPositiveTest()
     {
-        Angle a = new Angle(1, 3);
-        int degrees = 1;
-        int sectors = 3;
+        var a = new Angle(1, 3);
+        var degrees = 1;
+        var sectors = 3;
         Assert.True(degrees.Equals(1));
         Assert.True(sectors.Equals(3));
     }
@@ -24,89 +24,105 @@ public class AngleTest
     [Fact]
     public void AnglesEqualPositiveTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(1, 3);
+        var a = new Angle(15, 8);
+        var b = new Angle(23, 8);
         Assert.True(a.Equals(b));
+    }
+
+        [Fact]
+    public void AnglesOperatorEqualPositiveTest()
+    {
+        var a = new Angle(15, 8);
+        var b = new Angle(23, 8);
+        Assert.True(a == b);
     }
 
     [Fact]
     public void AnglesEqualNegativeTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(1, 4);
+        var a = new Angle(1, 8);
+        var b = new Angle(2, 8);
         Assert.False(a.Equals(b));
+    }
+
+    [Fact]
+    public void AnglesOperatirNotEqualPositiveTest()
+    {
+        var a = new Angle(1, 8);
+        var b = new Angle(2, 8);
+        Assert.True(a != b);
     }
 
     
     [Fact]
     public void AttemptingToAddValueAnglePoditiveTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle expA = new Angle(-1, 3);
+        var a = new Angle(5, 8);
+        var b = new Angle(7, 8);
+        var res = a + b;
+        var expA = new Angle(4, 8);
         Assert.True(res.Equals(expA));
     }
 
     [Fact]
     public void AttemptingToAddValueAngleNegativeTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle unexpA = new Angle(-2, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA = new Angle(-2, 3);
         Assert.False(res.Equals(unexpA));
     }
 
     [Fact]
     public void AttemptingToOperandPositiveTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle unexpA = new Angle(-1, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA = new Angle(-1, 3);
         Assert.True(res == unexpA);
     }
     [Fact]
     public void AttemptingToOperandNegativeTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle unexpA = new Angle(-2, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA = new Angle(-2, 3);
         Assert.False(res == unexpA);
     }
     [Fact]
     public void AttemptingToNegativeOperandNegativeTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle unexpA = new Angle(-1, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA = new Angle(-1, 3);
         Assert.False(res != unexpA);
     }
     [Fact]
     public void AttemptingToNegativeOperandPositiveTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(-2, 3);
-        Angle res = a + b;
-        Angle unexpA = new Angle(-2, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA = new Angle(-2, 3);
         Assert.True(res != unexpA);
     }
 
     [Fact]
     public void AttemptingToGetHashCodePositiveTest()
     {
-        Angle a = new Angle(1, 3);
-        Angle b = new Angle(1, 3);
+        var a = new Angle(1, 3);
+        var b = new Angle(1, 3);
         Assert.True(a.GetHashCode == a.GetHashCode);
     }
 
         [Fact]
     public void AttemptingToGetHashCodeNegativeTest()
     {
-        Angle a = new Angle(1, 3);
+        var a = new Angle(1, 3);
         Assert.False(a.GetHashCode == new Angle(1, 3).GetHashCode);
     }
 }

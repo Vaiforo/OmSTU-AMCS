@@ -1,15 +1,11 @@
 namespace SpaceBattle.Lib;
 public class Angle
 {
-    int degrees;
-    int  sectors;
+    int degrees{get;set;}
+    int sectors{get;}
 
     public Angle(int d, int n) 
     {
-        if(d >= n)
-        {
-            throw new ArgumentException("d must be less than n");
-        }
         degrees = d;
         sectors = n;
     }
@@ -36,14 +32,13 @@ public class Angle
 
     public override bool Equals(object? obj)
     {
-        if(obj is Angle)
+        if (obj is Angle other)
         {
-            Angle other = (Angle)obj;
-            return degrees == other.degrees && sectors == other.sectors;
+            return degrees % sectors == other.degrees % other.sectors && sectors == other.sectors;
         }
         else
-        { 
-            return false; 
+        {
+            return false;
         }
     }
 
