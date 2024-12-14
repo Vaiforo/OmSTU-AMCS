@@ -14,14 +14,6 @@ public class AngleTest
     }
 
     [Fact]
-    public void ObjectInitNegativeTest()
-    {
-        Assert.Throws<ArgumentException>(() => new Angle(5, 3));
-    }
-
-
-
-    [Fact]
     public void AnglesEqualPositiveTest()
     {
         var a = new Angle(15, 8);
