@@ -13,7 +13,7 @@ public class Vector
     {
         if (vector1._coords.Length != vector2._coords.Length)
         {
-            throw new InvalidDataException("Vectors must have the same length");
+            throw new ArgumentException("Vectors must have the same length");
         }
 
         var result = new Vector(new int[vector1._coords.Length])
@@ -23,6 +23,16 @@ public class Vector
                 .ToArray(),
         };
         return result;
+    }
+
+    public static bool operator ==(Vector vector1, Vector vector2)
+    {
+        return vector1._coords.SequenceEqual(vector2._coords);
+    }
+
+    public static bool operator !=(Vector vector1, Vector vector2)
+    {
+        return !(vector1 == vector2);
     }
 
     public override bool Equals(object? obj)
