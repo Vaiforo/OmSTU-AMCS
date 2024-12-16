@@ -1,8 +1,8 @@
 namespace SpaceBattle.Lib;
 public class Angle
 {
-    int degrees{get;set;}
-    int sectors{get;}
+    public int degrees{get;set;}
+    public int sectors{get;}
 
     public Angle(int d, int n) 
     {
@@ -40,10 +40,5 @@ public class Angle
         {
             return false;
         }
-    }
-
-    public override int GetHashCode()
-    {
-        return ( ((double)degrees) / sectors * 360 ).GetHashCode();
     }
 }

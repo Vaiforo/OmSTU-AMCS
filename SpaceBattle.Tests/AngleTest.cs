@@ -1,3 +1,4 @@
+using Castle.Components.DictionaryAdapter.Xml;
 using SpaceBattle.Lib;
 namespace SpaceBattle.Tests;
 
@@ -9,8 +10,8 @@ public class AngleTest
         var a = new Angle(1, 3);
         var degrees = 1;
         var sectors = 3;
-        Assert.True(degrees.Equals(1));
-        Assert.True(sectors.Equals(3));
+        Assert.True(degrees.Equals(a.degrees));
+        Assert.True(sectors.Equals(a.sectors));
     }
 
     [Fact]
@@ -47,7 +48,7 @@ public class AngleTest
 
     
     [Fact]
-    public void AttemptingToAddValueAnglePoditiveTest()
+    public void AttemptingToAddValueAnglePositiveTest()
     {
         var a = new Angle(5, 8);
         var b = new Angle(7, 8);
@@ -111,10 +112,27 @@ public class AngleTest
         Assert.True(a.GetHashCode == a.GetHashCode);
     }
 
-        [Fact]
+    [Fact]
     public void AttemptingToGetHashCodeNegativeTest()
     {
         var a = new Angle(1, 3);
         Assert.False(a.GetHashCode == new Angle(1, 3).GetHashCode);
+    }
+    [Fact]
+    public void AttemptingToPlusOperationWithOtherSectors()
+    {
+        var a = new Angle(1, 3);
+        var b = new Angle(1, 4);
+        Assert.Throws<ArgumentException>(() => a + b);
+    }
+
+    [Fact]
+    public void AttemptingToAddOtherObjectToAngle()
+    {
+        var a = new Angle(1, 3);
+        var b = new Angle(-2, 3);
+        var res = a + b;
+        var unexpA =-1;
+        Assert.False(res.Equals(unexpA));
     }
 }
