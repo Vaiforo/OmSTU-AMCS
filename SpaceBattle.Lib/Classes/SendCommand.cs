@@ -1,6 +1,6 @@
 namespace SpaceBattle.Lib;
 
-class SendCommand(ICommand commandToSend, ICommandReciever commandReciever): ICommand
+public class SendCommand(ICommand commandToSend, ICommandReciever commandReciever): ICommand
 {
     public void Execute()
     {
