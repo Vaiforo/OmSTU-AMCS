@@ -1,4 +1,4 @@
-using Hwdtech;
+using App;
 
 namespace SpaceBattle.Lib;
 
@@ -6,7 +6,7 @@ public class RegisterIoCDependencyMoveCommand : ICommand
 {
     public void Execute()
     {
-        IoC.Resolve<ICommand>(
+        Ioc.Resolve<ICommand>(
                 "IoC.Register",
                 "Commands.Move",
                 (object[] args) =>
