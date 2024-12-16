@@ -2,15 +2,15 @@ namespace SpaceBattle.Lib;
 
 public class MoveCommand : ICommand
 {
-    private readonly IMovingObject movingObject;
+    private readonly IMovingObject _movingObject;
 
     public MoveCommand(IMovingObject movingObject)
     {
-        this.movingObject = movingObject;
+        _movingObject = movingObject;
     }
 
     public void Execute()
     {
-        movingObject.Position += movingObject.Velocity;
+        _movingObject.Position += _movingObject.Velocity;
     }
 }
