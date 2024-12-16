@@ -25,6 +25,16 @@ public class Vector
         return result;
     }
 
+    public static bool operator ==(Vector vector1, Vector vector2)
+    {
+        return vector1._coords.SequenceEqual(vector2._coords);
+    }
+
+    public static bool operator !=(Vector vector1, Vector vector2)
+    {
+        return !(vector1 == vector2);
+    }
+
     public override bool Equals(object? obj)
     {
         return obj != null && obj is Vector vector && _coords.SequenceEqual(vector._coords);
