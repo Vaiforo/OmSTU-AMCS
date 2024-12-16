@@ -25,12 +25,12 @@ public class MovementTests
     {
         var moving = new Mock<IMovingObject>();
 
-        moving.SetupGet(x => x.Position).Throws(() => new InvalidOperationException()).Verifiable();
+        moving.SetupGet(x => x.Position).Throws(() => new Exception()).Verifiable();
         moving.SetupGet(x => x.Velocity).Returns(new Vector(-4, 1)).Verifiable();
 
         var cmd = new MoveCommand(moving.Object);
 
-        Assert.Throws<InvalidOperationException>(() => cmd.Execute());
+        Assert.Throws<Exception>(() => cmd.Execute());
     }
 
     [Fact]
@@ -39,11 +39,11 @@ public class MovementTests
         var moving = new Mock<IMovingObject>();
 
         moving.SetupGet(x => x.Position).Returns(new Vector(12, 5)).Verifiable();
-        moving.SetupGet(x => x.Velocity).Throws(() => new InvalidOperationException()).Verifiable();
+        moving.SetupGet(x => x.Velocity).Throws(() => new Exception()).Verifiable();
 
         var cmd = new MoveCommand(moving.Object);
 
-        Assert.Throws<InvalidOperationException>(() => cmd.Execute());
+        Assert.Throws<Exception>(() => cmd.Execute());
     }
 
     [Fact]
