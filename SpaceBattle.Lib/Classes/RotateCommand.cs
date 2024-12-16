@@ -1,8 +1,8 @@
 namespace SpaceBattle.Lib;
-public class TurnCommand : ICommand
+public class RotateCommand : ICommand
 {
     private readonly IRotatingObject rotatingObject;
-    public TurnCommand(IRotatingObject turnable)
+    public RotateCommand(IRotatingObject turnable)
     {
         rotatingObject = turnable;
     }
