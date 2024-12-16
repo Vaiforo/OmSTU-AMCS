@@ -1,12 +1,12 @@
 namespace SpaceBattle.Lib;
 
-public class StartCommad : ICommand
+public class StartCommand : ICommand
 {
     private readonly ICommand _command;
     private readonly IDictionary<string, object> _dict;
     private readonly ISender _queue;
 
-    public StartCommad(ICommand command, IDictionary<string, object> dict, ISender queue)
+    public StartCommand(ICommand command, IDictionary<string, object> dict, ISender queue)
     {
         _command = command;
         _dict = dict;
