@@ -10,7 +10,10 @@ public class RegisterIoCDependencySendCommand : ICommand
             "IoC.Register",
             "Commands.Send",
             (object[] args) =>
-                new SendCommand(Ioc.Resolve<ICommand>("Adapters.ICommand", args[0]), Ioc.Resolve<ICommandReciever>("Adapters.ICommandReciever", args[1]))
+                new SendCommand(
+                    Ioc.Resolve<ICommand>("Adapters.ICommand", args[0]),
+                    Ioc.Resolve<ICommandReciever>("Adapters.ICommandReciever", args[1])
+                )
         );
     }
 }
