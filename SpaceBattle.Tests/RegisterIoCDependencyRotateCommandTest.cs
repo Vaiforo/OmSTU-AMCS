@@ -21,14 +21,14 @@ public class RegisterIoCDependencyRotateCommandTests : IDisposable
         var obj = new Mock<object>();
         Ioc.Resolve<App.ICommand>(
                 "IoC.Register",
-                "Adapters.IRotatingObject",
+                "Adaters.IRotatingObject",
                 (object[] args) => irotatingObject.Object
             )
             .Execute();
 
         new RegisterIoCDependencyRotateComand().Execute();
 
-        var resolveDependency = Ioc.Resolve<RotateCommand>("Commands.Rotate", obj.Object);
+        var resolveDependency = Ioc.Resolve<Lib.ICommand>("Commands.Rotate", obj.Object);
         Assert.NotNull(resolveDependency);
         Assert.IsType<RotateCommand>(resolveDependency);
     }

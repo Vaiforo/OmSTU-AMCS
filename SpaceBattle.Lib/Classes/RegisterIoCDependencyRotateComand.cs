@@ -1,4 +1,5 @@
 using App;
+
 namespace SpaceBattle.Lib;
 
 public class RegisterIoCDependencyRotateComand
@@ -9,7 +10,7 @@ public class RegisterIoCDependencyRotateComand
             "IoC.Register",
             "Commands.Rotate",
             (object[] args) =>
-                new RotateCommand(Ioc.Resolve<IRotatingObject>("Apaters.IRotatingObject", args[0]))
+                new RotateCommand(Ioc.Resolve<IRotatingObject>("Adaters.IRotatingObject", args[0]))
             )
             .Execute();
     }

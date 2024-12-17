@@ -1,3 +1,4 @@
+
 namespace SpaceBattle.Lib;
 public class Angle
 {
@@ -41,4 +42,8 @@ public class Angle
             return false;
         }
     }
+        public override int GetHashCode()
+        {
+            return new {degrees, sectors}.GetHashCode();
+        }
 }

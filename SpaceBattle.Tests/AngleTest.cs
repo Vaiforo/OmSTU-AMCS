@@ -109,14 +109,13 @@ public class AngleTest
     {
         var a = new Angle(1, 3);
         var b = new Angle(1, 3);
-        Assert.True(a.GetHashCode == a.GetHashCode);
+        Assert.True(a.GetHashCode() == b.GetHashCode());
     }
 
     [Fact]
     public void AttemptingToGetHashCodeNegativeTest()
     {
-        var a = new Angle(1, 3);
-        Assert.False(a.GetHashCode == new Angle(1, 3).GetHashCode);
+        Assert.False(new Angle(1, 5).GetHashCode() == new Angle(1, 3).GetHashCode());
     }
     [Fact]
     public void AttemptingToPlusOperationWithOtherSectors()
