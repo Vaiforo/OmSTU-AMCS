@@ -5,7 +5,7 @@ using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class RegisterIoCDependencyMoveCommandTests
+public class RegisterIoCDependencyMoveCommandTests : IDisposable
 {
     public RegisterIoCDependencyMoveCommandTests()
     {
@@ -31,5 +31,10 @@ public class RegisterIoCDependencyMoveCommandTests
         var resolveDependency = Ioc.Resolve<MoveCommand>("Commands.Move", obj.Object);
         Assert.NotNull(resolveDependency);
         Assert.IsType<MoveCommand>(resolveDependency);
+    }
+
+    public void Dispose()
+    {
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }
