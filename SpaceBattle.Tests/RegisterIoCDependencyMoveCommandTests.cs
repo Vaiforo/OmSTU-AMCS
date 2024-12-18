@@ -15,7 +15,7 @@ public class RegisterIoCDependencyMoveCommandTests
     }
 
     [Fact]
-    public void MoveCommandRegisteredPositive()
+    public void MoveCommandRegisteredPositiveTest()
     {
         var imovingObject = new Mock<IMovingObject>();
         var obj = new Mock<object>();
