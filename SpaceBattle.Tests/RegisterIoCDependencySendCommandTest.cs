@@ -15,5 +15,5 @@ public class RegisterIoCDependencySendCommandTests
     }
 
     [Fact]
-    public void RegisterIoCDependencySendCommandResolvePositiveTest() {}
+    public void RegisterIoCDependencySendCommandResolvePositiveTest() { }
 }
