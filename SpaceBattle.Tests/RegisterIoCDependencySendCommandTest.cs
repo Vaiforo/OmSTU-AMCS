@@ -7,7 +7,7 @@ namespace SpaceBattle.Tests;
 
 public class RegisterIoCDependencySendCommandTests
 {
-    RegisterIoCDependencySendCommandTests()
+    public RegisterIoCDependencySendCommandTests()
     {
         new InitCommand().Execute();
         var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
