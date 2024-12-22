@@ -18,7 +18,7 @@ public class RegisterIoCDependencyRotateCommandTests
             .Execute();
     }
 
-    [Fact]
+[Fact]
     public void RotateCommandRegisteredPositive()
     {
         var irotatingObject = new Mock<IRotatingObject>();
@@ -30,7 +30,8 @@ public class RegisterIoCDependencyRotateCommandTests
         )
         .Execute();
 
-        RegisterIoCDependencyRotateComand.Execute();
+        var a = new RegisterIoCDependencyRotateComand();
+        a.Execute();
 
         var resolveDependency = IoC.Resolve<Lib.ICommand>("Commands.Rotate", obj.Object);
         Assert.NotNull(resolveDependency);
