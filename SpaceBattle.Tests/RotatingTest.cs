@@ -1,5 +1,5 @@
+﻿using Moq;
 using SpaceBattle.Lib;
-using Moq;
 namespace SpaceBattle.Tests;
 public class RotatingTests
 {
@@ -20,7 +20,7 @@ public class RotatingTests
     {
         var rotating = new Mock<IRotatingObject>();
         rotating.SetupGet(x => x.Angle).Throws(new InvalidOperationException());
-        rotating.SetupGet(x => x.AngleVelocity).Returns(new Angle(90,360));
+        rotating.SetupGet(x => x.AngleVelocity).Returns(new Angle(90, 360));
         var cmd = new RotateCommand(rotating.Object);
         Assert.Throws<InvalidOperationException>(() => cmd.Execute());
     }
@@ -28,17 +28,17 @@ public class RotatingTests
     public void ObjectRotationAngleVelocityMissingTest()
     {
         var rotating = new Mock<IRotatingObject>();
-        rotating.SetupGet(x => x.Angle).Returns(new Angle(45,360));
+        rotating.SetupGet(x => x.Angle).Returns(new Angle(45, 360));
         rotating.SetupGet(x => x.AngleVelocity).Throws(new InvalidOperationException());
         var cmd = new RotateCommand(rotating.Object);
         Assert.Throws<InvalidOperationException>(() => cmd.Execute());
     }
-            [Fact]
+    [Fact]
     public void ObjectUpdateRotationNegativeTest()
     {
         var rotating = new Mock<IRotatingObject>();
         rotating.SetupGet(x => x.Angle).Returns(new Angle(45, 360));
-        rotating.SetupGet(x => x.AngleVelocity).Returns(new Angle(90, 360)); 
+        rotating.SetupGet(x => x.AngleVelocity).Returns(new Angle(90, 360));
         var cmd = new RotateCommand(rotating.Object);
         cmd.Execute();
         rotating.SetupSet(x => x.Angle = new Angle(135, 360)).Throws(() => new Exception()).Verifiable();

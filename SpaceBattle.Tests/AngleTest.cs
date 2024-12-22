@@ -1,5 +1,4 @@
-using Castle.Components.DictionaryAdapter.Xml;
-using SpaceBattle.Lib;
+﻿using SpaceBattle.Lib;
 namespace SpaceBattle.Tests;
 
 public class AngleTest
@@ -22,7 +21,7 @@ public class AngleTest
         Assert.True(a.Equals(b));
     }
 
-        [Fact]
+    [Fact]
     public void AnglesOperatorEqualPositiveTest()
     {
         var a = new Angle(15, 8);
@@ -46,7 +45,6 @@ public class AngleTest
         Assert.True(a != b);
     }
 
-    
     [Fact]
     public void AttemptingToAddValueAnglePositiveTest()
     {
@@ -131,10 +129,10 @@ public class AngleTest
         var a = new Angle(1, 3);
         var b = new Angle(-2, 3);
         var res = a + b;
-        var unexpA =-1;
+        var unexpA = -1;
         Assert.False(res.Equals(unexpA));
     }
-        [Fact]
+    [Fact]
     public void ToSinPositiveTest()
     {
         var a = new Angle(0, 360);

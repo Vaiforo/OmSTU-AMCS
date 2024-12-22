@@ -1,19 +1,19 @@
-
+﻿
 namespace SpaceBattle.Lib;
 public class Angle
 {
-    public int degrees{get;set;}
-    public int sectors{get;}
+    public int degrees { get; set; }
+    public int sectors { get; }
 
-    public Angle(int d, int n) 
+    public Angle(int d, int n)
     {
         degrees = d;
         sectors = n;
     }
 
-    public static Angle operator+(Angle a1, Angle a2)
+    public static Angle operator +(Angle a1, Angle a2)
     {
-        if(a1.sectors != a2.sectors)
+        if (a1.sectors != a2.sectors)
         {
             throw new ArgumentException("Operands Angle must have same division");
         }
@@ -21,12 +21,12 @@ public class Angle
         return new Angle((a1.degrees + a2.degrees) % a1.sectors, a1.sectors);
     }
 
-    public static bool operator==(Angle a1, Angle a2)
+    public static bool operator ==(Angle a1, Angle a2)
     {
         return a1.Equals(a2);
     }
 
-    public static bool operator!=(Angle a1, Angle a2)
+    public static bool operator !=(Angle a1, Angle a2)
     {
         return !(a1 == a2);
     }
@@ -42,7 +42,7 @@ public class Angle
     public double Cos()
     {
         return Math.Cos(ToRadians());
-    }    
+    }
 
     public override bool Equals(object? obj)
     {
@@ -55,8 +55,8 @@ public class Angle
             return false;
         }
     }
-        public override int GetHashCode()
-        {
-            return new {degrees, sectors}.GetHashCode();
-        }
+    public override int GetHashCode()
+    {
+        return new { degrees, sectors }.GetHashCode();
+    }
 }

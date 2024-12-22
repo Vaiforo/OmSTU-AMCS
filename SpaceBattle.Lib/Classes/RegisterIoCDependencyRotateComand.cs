@@ -1,10 +1,10 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
 public class RegisterIoCDependencyRotateComand
 {
-    public void Execute()
+    public static void Execute()
     {
         IoC.Resolve<Hwdtech.ICommand>(
             "IoC.Register",

@@ -1,4 +1,4 @@
-using SpaceBattle.Lib;
+﻿using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
