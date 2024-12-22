@@ -27,11 +27,13 @@ public class RegisterIoCDependencyActionsStartTests
         var queue = new Mock<ISender>();
         var label = "startCommand";
 
-        var order = new Dictionary<string, object>();
-        order["Command"] = cmd.Object;
-        order["Dictionary"] = dict;
-        order["Sender"] = queue.Object;
-        order["Label"] = label;
+        IDictionary<string, object> order = new Dictionary<string, object>
+        {
+            ["Command"] = cmd.Object,
+            ["Dictionary"] = dict,
+            ["Sender"] = queue.Object,
+            ["Label"] = label,
+        };
 
         var resolveDependency = IoC.Resolve<StartCommand>("Actions.Start", order);
         Assert.NotNull(resolveDependency);
