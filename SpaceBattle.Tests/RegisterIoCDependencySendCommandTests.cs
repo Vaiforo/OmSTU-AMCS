@@ -17,17 +17,15 @@ public class RegisterIoCDependencyMacroCommandTests
     }
 
     [Fact]
-    public void MacroCommandRegisteredPositive()
+    public void MacroCommandRegisteredPositiveTest()
     {
-        var enumerableMock = new Mock<IEnumerable<Lib.ICommand>>();
-        var enumerable = enumerableMock.Object;
-
-        var obj = new Mock<object>();
+        var enumerable = new Mock<IEnumerable<Lib.ICommand>>();
+        var obj = new Mock<Lib.ICommand>();
 
         IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Adapters.IEnumerable<ICommand>",
-                (object[] args) => enumerable
+                (object[] args) => enumerable.Object
             ).Execute();
 
         var RegisterIoCDependencyMacroCommand = new RegisterIoCDependencyMacroCommand();
@@ -35,7 +33,7 @@ public class RegisterIoCDependencyMacroCommandTests
 
         var resolveIoCDependencyMacroCommand = IoC.Resolve<Lib.ICommand>(
             "Commands.Macro",
-            new object[] { obj.Object}
+             new Lib.ICommand[] {obj.Object}
         );
 
         Assert.NotNull(resolveIoCDependencyMacroCommand);
