@@ -5,7 +5,7 @@ namespace SpaceBattle.Tests;
 public class EmptyCommandTest
 {
     [Fact]
-    public void EmptyCommandInitPositive()
+    public void EmptyCommandInitPositiveTest()
     {
         var emptyCommand = new EmptyCommand();
         emptyCommand.Execute();
