@@ -7,14 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="core">
-      <HintPath>..\Common\core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="scopes">
-      <HintPath>..\Common\scopes.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Hwdtech.IoC" Version="1.0.0" />
+    <PackageReference Include="Hwdtech.Ioc.ScopeBasedIoCImplementation" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
