@@ -8,8 +8,14 @@ public class RegisterIoCDependencyActionsStop : ICommand
     {
         IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
-                "Action.Stop",
-                (object[] args) => new EndCommand()
+                "Actions.Stop",
+                (object[] args) =>
+                {
+                    var order = (IDictionary<string, object>)args[0];
+                    var dict = (IDictionary<string, object>)order["Dictionary"];
+                    var label = (string)order["Label"];
+                    return new EndCommand(dict, label);
+                }
             )
             .Execute();
     }
