@@ -1,17 +1,21 @@
-using App;
-using App.Scopes;
+using Hwdtech;
+using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class RegisterIoCDependencyRotateCommandTests : IDisposable
+public class RegisterIoCDependencyRotateCommandTests
 {
     public RegisterIoCDependencyRotateCommandTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
+        new InitScopeBasedIoCImplementationCommand().Execute();
+
+        IoC.Resolve<Hwdtech.ICommand>(
+            "Scopes.Current.Set",
+            IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
+            )
+            .Execute();
     }
 
     [Fact]
@@ -19,7 +23,7 @@ public class RegisterIoCDependencyRotateCommandTests : IDisposable
     {
         var irotatingObject = new Mock<IRotatingObject>();
         var obj = new Mock<object>();
-        Ioc.Resolve<App.ICommand>(
+        IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Adaters.IRotatingObject",
                 (object[] args) => irotatingObject.Object
@@ -28,12 +32,8 @@ public class RegisterIoCDependencyRotateCommandTests : IDisposable
 
         new RegisterIoCDependencyRotateComand().Execute();
 
-        var resolveDependency = Ioc.Resolve<Lib.ICommand>("Commands.Rotate", obj.Object);
+        var resolveDependency = IoC.Resolve<Lib.ICommand>("Commands.Rotate", obj.Object);
         Assert.NotNull(resolveDependency);
         Assert.IsType<RotateCommand>(resolveDependency);
-    }
-        public void Dispose()
-    {
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }
