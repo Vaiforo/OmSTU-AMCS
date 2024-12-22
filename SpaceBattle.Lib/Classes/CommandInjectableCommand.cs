@@ -2,7 +2,7 @@
 
 public class CommandInjectableCommand : ICommand, ICommandInjectable
 {
-    private ICommand? _command;
+    public ICommand? _command;
 
     public void Execute()
     {
