@@ -1,4 +1,8 @@
-﻿using Moq;
+﻿// ТЕСТЫ ПИСАЛ МАКС
+// просто мы в самом начале так немного странно из-за меня распреедлили кто что делал что у него тесты move у меня vector
+// при том что vector он писал, а я move
+
+using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
