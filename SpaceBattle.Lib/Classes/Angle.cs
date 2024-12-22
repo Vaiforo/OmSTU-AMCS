@@ -32,7 +32,8 @@ public class Angle
     }
     private double ToRadians()
     {
-        return (degrees * 360 / sectors) * Math.PI / 180.0;
+        double _degrees = degrees * 360 / sectors;
+        return _degrees * Math.PI / 180.0;
     }
     public double Sin()
     {
