@@ -24,13 +24,13 @@ public class RegisterIoCDependencyRotateCommandTests
         var irotatingObject = new Mock<IRotatingObject>();
         var obj = new Mock<object>();
         IoC.Resolve<Hwdtech.ICommand>(
-                "IoC.Register",
-                "Adaters.IRotatingObject",
-                (object[] args) => irotatingObject.Object
-            )
-            .Execute();
+            "IoC.Register",
+            "Adaters.IRotatingObject",
+            (object[] args) => irotatingObject.Object
+        )
+        .Execute();
 
-        new RegisterIoCDependencyRotateComand().Execute();
+        RegisterIoCDependencyRotateComand.Execute();
 
         var resolveDependency = IoC.Resolve<Lib.ICommand>("Commands.Rotate", obj.Object);
         Assert.NotNull(resolveDependency);

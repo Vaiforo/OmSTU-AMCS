@@ -4,7 +4,7 @@ namespace SpaceBattle.Lib;
 
 public class RegisterIoCDependencyRotateComand
 {
-    public static void Execute()
+    public void Execute()
     {
         IoC.Resolve<Hwdtech.ICommand>(
             "IoC.Register",
