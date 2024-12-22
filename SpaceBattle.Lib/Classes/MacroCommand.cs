@@ -1,8 +1,8 @@
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
 
 public class MacroCommand : ICommand
 {
-    private IEnumerable<ICommand> _commands;
+    private readonly IEnumerable<ICommand> _commands;
     public MacroCommand(IEnumerable<ICommand> commands)
     {
         _commands = commands;

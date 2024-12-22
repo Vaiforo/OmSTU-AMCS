@@ -1,7 +1,7 @@
-using SpaceBattle.Lib;
-using Moq;
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
+using Moq;
+using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
@@ -29,8 +29,8 @@ public class RegisterIoCDependencyMacroMoveRotateTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Command3", (object[] args) => command3.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Command4", (object[] args) => command4.Object).Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Move", (object[] args) => new List<string> {"Command1", "Command2"}).Execute();
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Rotate", (object[] args) => new List<string> {"Command3", "Command4"}).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Move", (object[] args) => new List<string> { "Command1", "Command2" }).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Rotate", (object[] args) => new List<string> { "Command3", "Command4" }).Execute();
 
         var registerMacroCommand = new RegisterIoCDependencyMacroCommand();
         registerMacroCommand.Execute();

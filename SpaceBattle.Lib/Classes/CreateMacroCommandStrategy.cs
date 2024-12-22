@@ -1,9 +1,9 @@
-using Hwdtech;
+﻿using Hwdtech;
 namespace SpaceBattle.Lib;
 
 public class CreateMacroCommandStrategy(string commandSpec)
 {
-    private string _commandSpec = commandSpec;
+    private readonly string _commandSpec = commandSpec;
 
     public ICommand Resolve(object[] args)
     {

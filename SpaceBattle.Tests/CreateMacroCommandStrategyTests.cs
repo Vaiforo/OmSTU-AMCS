@@ -1,7 +1,7 @@
-using SpaceBattle.Lib;
-using Moq;
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
+using Moq;
+using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
@@ -27,8 +27,8 @@ public class CreateMacroCommandStrategyTests
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Command2", (object[] args) => command2.Object).Execute();
         IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Command3", (object[] args) => command3.Object).Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Test", (object[] args) => new List<string> {"Command1", "Command2", "Command3"}).Execute();
-        
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Test", (object[] args) => new List<string> { "Command1", "Command2", "Command3" }).Execute();
+
         var registerMacroCommand = new RegisterIoCDependencyMacroCommand();
         registerMacroCommand.Execute();
 
@@ -43,7 +43,7 @@ public class CreateMacroCommandStrategyTests
     [Fact]
     public void MacroCommandResolvesAndAllCommandsCompleteNegativeTest()
     {
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Test", (object[] args) => new List<string> {"Command"}).Execute();
+        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Specs.Test", (object[] args) => new List<string> { "Command" }).Execute();
         new RegisterIoCDependencyMacroCommand().Execute();
 
         var CreateMacroCommandStrategy = new CreateMacroCommandStrategy("Test");

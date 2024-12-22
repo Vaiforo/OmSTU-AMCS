@@ -1,5 +1,5 @@
+﻿using Moq;
 using SpaceBattle.Lib;
-using Moq;
 
 namespace SpaceBattle.Tests;
 
@@ -33,7 +33,7 @@ public class MacroCommandTests
         command2.Setup(cmd => cmd.Execute()).Throws(new Exception());
         command3.Setup(cmd => cmd.Execute()).Verifiable();
 
-        var commands = new List<ICommand>{command1.Object, command2.Object, command3.Object};
+        var commands = new List<ICommand> { command1.Object, command2.Object, command3.Object };
         var macroCommand = new MacroCommand(commands);
 
         var ex = Assert.Throws<Exception>(() => macroCommand.Execute());

@@ -1,7 +1,7 @@
-using SpaceBattle.Lib;
-using Moq;
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
+using Moq;
+using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
@@ -33,10 +33,10 @@ public class RegisterIoCDependencyMacroCommandTests
 
         var resolveIoCDependencyMacroCommand = IoC.Resolve<Lib.ICommand>(
             "Commands.Macro",
-             new Lib.ICommand[] {obj.Object}
+             new Lib.ICommand[] { obj.Object }
         );
 
         Assert.NotNull(resolveIoCDependencyMacroCommand);
         Assert.IsType<MacroCommand>(resolveIoCDependencyMacroCommand);
     }
-} 
+}
