@@ -1,17 +1,20 @@
-using App;
-using App.Scopes;
+using Hwdtech;
+using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class RegisterIoCDependencyMoveCommandTests : IDisposable
+public class RegisterIoCDependencyMoveCommandTests
 {
     public RegisterIoCDependencyMoveCommandTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
+        new InitScopeBasedIoCImplementationCommand().Execute();
+        IoC.Resolve<Hwdtech.ICommand>(
+                "Scopes.Current.Set",
+                IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
+            )
+            .Execute();
     }
 
     [Fact]
@@ -19,7 +22,7 @@ public class RegisterIoCDependencyMoveCommandTests : IDisposable
     {
         var imovingObject = new Mock<IMovingObject>();
         var obj = new Mock<object>();
-        Ioc.Resolve<App.ICommand>(
+        IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Adapters.IMovingObject",
                 (object[] args) => imovingObject.Object
@@ -28,13 +31,8 @@ public class RegisterIoCDependencyMoveCommandTests : IDisposable
 
         new RegisterIoCDependencyMoveCommand().Execute();
 
-        var resolveDependency = Ioc.Resolve<MoveCommand>("Commands.Move", obj.Object);
+        var resolveDependency = IoC.Resolve<MoveCommand>("Commands.Move", obj.Object);
         Assert.NotNull(resolveDependency);
         Assert.IsType<MoveCommand>(resolveDependency);
-    }
-
-    public void Dispose()
-    {
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }

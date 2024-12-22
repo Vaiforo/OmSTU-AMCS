@@ -1,4 +1,4 @@
-using App;
+using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -6,7 +6,7 @@ public class RegisterIoCDependencyActionsStart : ICommand
 {
     public void Execute()
     {
-        Ioc.Resolve<App.ICommand>(
+        IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Actions.Start",
                 (object[] args) =>

@@ -1,17 +1,24 @@
-using App;
-using App.Scopes;
+// ТЕСТЫ ПИСАЛ МАКС
+// просто мы в самом начале так немного странно из-за меня распреедлили кто что делал что у него тесты move у меня vector
+// при том что vector он писал, а я move
+
+using Hwdtech;
+using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class RegisterIoCDependencyActionsStartTests : IDisposable
+public class RegisterIoCDependencyActionsStartTests
 {
     public RegisterIoCDependencyActionsStartTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Set", iocScope).Execute();
+        new InitScopeBasedIoCImplementationCommand().Execute();
+        IoC.Resolve<Hwdtech.ICommand>(
+                "Scopes.Current.Set",
+                IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
+            )
+            .Execute();
     }
 
     [Fact]
@@ -28,13 +35,8 @@ public class RegisterIoCDependencyActionsStartTests : IDisposable
         order["Dictionary"] = dict;
         order["Sender"] = queue.Object;
 
-        var resolveDependency = Ioc.Resolve<StartCommand>("Actions.Start", order);
+        var resolveDependency = IoC.Resolve<StartCommand>("Actions.Start", order);
         Assert.NotNull(resolveDependency);
         Assert.IsType<StartCommand>(resolveDependency);
-    }
-
-    public void Dispose()
-    {
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }
