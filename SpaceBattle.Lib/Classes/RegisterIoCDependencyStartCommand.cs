@@ -15,7 +15,8 @@ public class RegisterIoCDependencyActionsStart : ICommand
                     var cmd = (ICommand)order["Command"];
                     var dict = (IDictionary<string, object>)order["Dictionary"];
                     var queue = (ISender)order["Sender"];
-                    return new StartCommand(cmd, dict, queue);
+                    var label = (string)order["Label"];
+                    return new StartCommand(cmd, dict, queue, label);
                 }
             )
             .Execute();

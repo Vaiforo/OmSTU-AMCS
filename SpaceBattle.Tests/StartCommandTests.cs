@@ -11,8 +11,9 @@ public class StartCommandTest
         var cmd = new Mock<ICommand>();
         var dict = new Dictionary<string, object>();
         var queue = new Mock<ISender>();
+        var label = "startCommand";
 
-        var startCommand = new StartCommand(cmd.Object, dict, queue.Object);
+        var startCommand = new StartCommand(cmd.Object, dict, queue.Object, label);
         startCommand.Execute();
 
         Assert.True(dict.ContainsKey("startCommand"));
