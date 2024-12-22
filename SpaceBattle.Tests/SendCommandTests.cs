@@ -5,7 +5,7 @@ using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class SendCommandTests
+public class SendCommandTests : IDisposable
 {
     public SendCommandTests()
     {
@@ -44,5 +44,10 @@ public class SendCommandTests
 
         var sendCommand = new SendCommand(cmd, commandReciever);
         Assert.Throws<Exception>(() => sendCommand.Execute());
+    }
+
+    public void Dispose()
+    {
+        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }
