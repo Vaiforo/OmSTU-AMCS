@@ -1,17 +1,20 @@
-using App;
-using App.Scopes;
+using Hwdtech;
+using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class SendCommandTests : IDisposable
+public class SendCommandTests
 {
     public SendCommandTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scopes.Current.Set", iocScope).Execute();
+        new InitScopeBasedIoCImplementationCommand().Execute();
+        IoC.Resolve<Hwdtech.ICommand>(
+                "Scopes.Current.Set",
+                IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
+            )
+            .Execute();
     }
 
     [Fact]
@@ -26,7 +29,7 @@ public class SendCommandTests : IDisposable
         var sendCommand = new SendCommand(cmd, commandReciever);
         sendCommand.Execute();
 
-        commandRecieverMock.Verify(reciever => reciever.Recieve(cmd), Times.Once());
+        commandRecieverMock.Verify(commandReciever => commandReciever.Recieve(cmd), Times.Once());
     }
 
     [Fact]
@@ -44,10 +47,5 @@ public class SendCommandTests : IDisposable
 
         var sendCommand = new SendCommand(cmd, commandReciever);
         Assert.Throws<Exception>(() => sendCommand.Execute());
-    }
-
-    public void Dispose()
-    {
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
     }
 }

@@ -1,17 +1,20 @@
-using App;
-using App.Scopes;
+using Hwdtech;
+using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class RegisterIoCDependencySendCommandTests : IDisposable
+public class RegisterIoCDependencySendCommandTests
 {
     public RegisterIoCDependencySendCommandTests()
     {
-        new InitCommand().Execute();
-        var iocScope = Ioc.Resolve<object>("IoC.Scope.Create");
-        Ioc.Resolve<App.ICommand>("IoC.Scopes.Current.Set", iocScope).Execute();
+        new InitScopeBasedIoCImplementationCommand().Execute();
+        IoC.Resolve<Hwdtech.ICommand>(
+                "Scopes.Current.Set",
+                IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
+            )
+            .Execute();
     }
 
     [Fact]
@@ -26,10 +29,14 @@ public class RegisterIoCDependencySendCommandTests : IDisposable
         var obj1 = new Mock<object>();
         var obj2 = new Mock<object>();
 
-        Ioc.Resolve<App.ICommand>("IoC.Register", "Adapters.ICommand", (object[] args) => command)
+        IoC.Resolve<Hwdtech.ICommand>(
+                "IoC.Register",
+                "Adapters.ICommand",
+                (object[] args) => command
+            )
             .Execute();
 
-        Ioc.Resolve<App.ICommand>(
+        IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Adapters.ICommandReciever",
                 (object[] args) => messageReceiver
@@ -39,7 +46,7 @@ public class RegisterIoCDependencySendCommandTests : IDisposable
         var registerIoCDependencySendCommand = new RegisterIoCDependencySendCommand();
         registerIoCDependencySendCommand.Execute();
 
-        var resolveIoCDependencySendCommand = Ioc.Resolve<Lib.ICommand>(
+        var resolveIoCDependencySendCommand = IoC.Resolve<Lib.ICommand>(
             "Commands.Send",
             new object[] { obj1.Object, obj2.Object }
         );
@@ -47,11 +54,6 @@ public class RegisterIoCDependencySendCommandTests : IDisposable
         Assert.NotNull(resolveIoCDependencySendCommand);
         Assert.IsType<SendCommand>(resolveIoCDependencySendCommand);
         resolveIoCDependencySendCommand.Execute();
-        commandReceiverMock.Verify(reciever => reciever.Recieve(command), Times.Once);
-    }
-
-    public void Dispose()
-    {
-        Ioc.Resolve<App.ICommand>("IoC.Scope.Current.Clear").Execute();
+        commandReceiverMock.Verify(commandReciever => commandReciever.Recieve(command), Times.Once);
     }
 }
