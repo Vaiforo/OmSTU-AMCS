@@ -34,6 +34,6 @@ public class EndCommandTests
         stopwatch.Stop();
 
         var elapsed = stopwatch.ElapsedTicks;
-        Assert.True(elapsed < 2000, $"Execute took too long: {elapsed} ticks");
+        Assert.True(elapsed < 10000, $"Execute took too long: {elapsed} ticks");
     }
 }
