@@ -1,4 +1,5 @@
 ﻿using SpaceBattle.Lib;
+
 namespace SpaceBattle.Tests;
 
 public class AngleTest
@@ -74,6 +75,7 @@ public class AngleTest
         var unexpA = new Angle(-1, 3);
         Assert.True(res == unexpA);
     }
+
     [Fact]
     public void AttemptingToOperandNegativeTest()
     {
@@ -83,6 +85,7 @@ public class AngleTest
         var unexpA = new Angle(-2, 3);
         Assert.False(res == unexpA);
     }
+
     [Fact]
     public void AttemptingToNegativeOperandNegativeTest()
     {
@@ -92,6 +95,7 @@ public class AngleTest
         var unexpA = new Angle(-1, 3);
         Assert.False(res != unexpA);
     }
+
     [Fact]
     public void AttemptingToNegativeOperandPositiveTest()
     {
@@ -115,8 +119,9 @@ public class AngleTest
     {
         Assert.False(new Angle(1, 5).GetHashCode() == new Angle(1, 3).GetHashCode());
     }
+
     [Fact]
-    public void AttemptingToPlusOperationWithOtherSectors()
+    public void AttemptingToPlusOperationWithOtherSectorsTest()
     {
         var a = new Angle(1, 3);
         var b = new Angle(1, 4);
@@ -124,7 +129,7 @@ public class AngleTest
     }
 
     [Fact]
-    public void AttemptingToAddOtherObjectToAngle()
+    public void AttemptingToAddOtherObjectToAngleTest()
     {
         var a = new Angle(1, 3);
         var b = new Angle(-2, 3);
@@ -132,18 +137,21 @@ public class AngleTest
         var unexpA = -1;
         Assert.False(res.Equals(unexpA));
     }
+
     [Fact]
     public void ToSinPositiveTest()
     {
         var a = new Angle(0, 360);
         Assert.Equal(0.0, a.Sin());
     }
+
     [Fact]
     public void ToSinExeptionTest()
     {
         var a = new Angle(0, 0);
         Assert.Throws<DivideByZeroException>(() => a.Sin());
     }
+
     [Fact]
     public void ToCosPositiveTest()
     {

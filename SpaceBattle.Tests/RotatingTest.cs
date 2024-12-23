@@ -1,6 +1,8 @@
 ﻿using Moq;
 using SpaceBattle.Lib;
+
 namespace SpaceBattle.Tests;
+
 public class RotatingTests
 {
     [Fact]
@@ -24,6 +26,7 @@ public class RotatingTests
         var cmd = new RotateCommand(rotating.Object);
         Assert.Throws<InvalidOperationException>(() => cmd.Execute());
     }
+
     [Fact]
     public void ObjectRotationAngleVelocityMissingTest()
     {
@@ -33,6 +36,7 @@ public class RotatingTests
         var cmd = new RotateCommand(rotating.Object);
         Assert.Throws<InvalidOperationException>(() => cmd.Execute());
     }
+
     [Fact]
     public void ObjectUpdateRotationNegativeTest()
     {
@@ -41,7 +45,10 @@ public class RotatingTests
         rotating.SetupGet(x => x.AngleVelocity).Returns(new Angle(90, 360));
         var cmd = new RotateCommand(rotating.Object);
         cmd.Execute();
-        rotating.SetupSet(x => x.Angle = new Angle(135, 360)).Throws(() => new Exception()).Verifiable();
+        rotating
+            .SetupSet(x => x.Angle = new Angle(135, 360))
+            .Throws(() => new Exception())
+            .Verifiable();
         Assert.Throws<Exception>(cmd.Execute);
         rotating.VerifyAll();
     }

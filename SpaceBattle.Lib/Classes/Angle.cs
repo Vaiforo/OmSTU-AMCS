@@ -1,5 +1,5 @@
-﻿
-namespace SpaceBattle.Lib;
+﻿namespace SpaceBattle.Lib;
+
 public class Angle
 {
     public int degrees { get; set; }
@@ -30,11 +30,13 @@ public class Angle
     {
         return !(a1 == a2);
     }
+
     private double ToRadians()
     {
         double _degrees = degrees * 360 / sectors;
         return _degrees * Math.PI / 180.0;
     }
+
     public double Sin()
     {
         return Math.Sin(ToRadians());
@@ -56,6 +58,7 @@ public class Angle
             return false;
         }
     }
+
     public override int GetHashCode()
     {
         return new { degrees, sectors }.GetHashCode();
