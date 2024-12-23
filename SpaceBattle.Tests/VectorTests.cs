@@ -2,7 +2,7 @@
 
 namespace SpaceBattle.Tests;
 
-public class VectorTestsNew
+public class VectorTests
 {
     [Fact]
     public void ObjectInitVector2DPositiveTest()
