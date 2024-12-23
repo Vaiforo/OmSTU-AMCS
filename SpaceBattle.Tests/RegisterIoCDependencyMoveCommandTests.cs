@@ -10,7 +10,7 @@ public class RegisterIoCDependencyMoveCommandTests
     public RegisterIoCDependencyMoveCommandTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
@@ -22,7 +22,7 @@ public class RegisterIoCDependencyMoveCommandTests
     {
         var imovingObject = new Mock<IMovingObject>();
         var obj = new Mock<object>();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Adapters.IMovingObject",
                 (object[] args) => imovingObject.Object

@@ -1,8 +1,10 @@
-﻿namespace SpaceBattle.Lib;
+﻿using Hwdtech;
+
+namespace SpaceBattle.Lib;
 
 public class CommandInjectableCommand : ICommand, ICommandInjectable
 {
-    public ICommand? _command;
+    private ICommand? _command;
 
     public void Execute()
     {

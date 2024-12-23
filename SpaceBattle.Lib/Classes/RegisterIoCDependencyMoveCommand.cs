@@ -6,7 +6,7 @@ public class RegisterIoCDependencyMoveCommand : ICommand
 {
     public void Execute()
     {
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Commands.Move",
                 (object[] args) =>

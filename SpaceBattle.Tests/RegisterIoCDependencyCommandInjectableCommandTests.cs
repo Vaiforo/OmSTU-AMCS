@@ -9,7 +9,7 @@ public class RegisterIoCDependencyCommandInjectableCommandTests
     public RegisterIoCDependencyCommandInjectableCommandTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
@@ -22,7 +22,7 @@ public class RegisterIoCDependencyCommandInjectableCommandTests
         var temp = new RegisterIoCDependencyCommandInjectableCommand();
         temp.Execute();
 
-        var injectableCommand1 = IoC.Resolve<Lib.ICommand>("Commands.CommandInjectable");
+        var injectableCommand1 = IoC.Resolve<ICommand>("Commands.CommandInjectable");
         var injectableCommand2 = IoC.Resolve<ICommandInjectable>("Commands.CommandInjectable");
         var injectableCommand3 = IoC.Resolve<CommandInjectableCommand>(
             "Commands.CommandInjectable"

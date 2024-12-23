@@ -10,7 +10,7 @@ public class RegisterIoCDependencyActionsStartTests
     public RegisterIoCDependencyActionsStartTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
@@ -22,7 +22,7 @@ public class RegisterIoCDependencyActionsStartTests
     {
         new RegisterIoCDependencyActionsStart().Execute();
 
-        var cmd = new Mock<Lib.ICommand>();
+        var cmd = new Mock<ICommand>();
         var dict = new Dictionary<string, object>();
         var queue = new Mock<ISender>();
         var label = "startCommand";
