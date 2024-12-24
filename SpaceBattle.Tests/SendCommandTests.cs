@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Hwdtech;
+using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
@@ -8,7 +9,7 @@ public class SendCommandTests
     [Fact]
     public void SendCommandSendedCommandToCommandRecieverPositiveTest()
     {
-        var commandMock = new Mock<Lib.ICommand>();
+        var commandMock = new Mock<ICommand>();
         var cmd = commandMock.Object;
 
         var commandRecieverMock = new Mock<ICommandReciever>();
@@ -23,7 +24,7 @@ public class SendCommandTests
     [Fact]
     public void SendCommandSendedCommandToCommandRecieverICommandRecieverCannotGetCommandNegativeTest()
     {
-        var commandMock = new Mock<Lib.ICommand>();
+        var commandMock = new Mock<ICommand>();
         var cmd = commandMock.Object;
 
         var commandRecieverMock = new Mock<ICommandReciever>();
