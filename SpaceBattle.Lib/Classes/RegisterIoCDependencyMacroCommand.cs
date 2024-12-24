@@ -5,7 +5,7 @@ public class RegisterIoCDependencyMacroCommand : ICommand
 {
     public void Execute()
     {
-        IoC.Resolve<Hwdtech.ICommand>("IoC.Register", "Commands.Macro", (object[] args) => (ICommand)new MacroCommand(
+        IoC.Resolve<ICommand>("IoC.Register", "Commands.Macro", (object[] args) => (ICommand)new MacroCommand(
             args.Select(command => (ICommand)command).ToArray()
         )).Execute();
     }
