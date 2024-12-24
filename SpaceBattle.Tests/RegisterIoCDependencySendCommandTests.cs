@@ -24,10 +24,7 @@ public class RegisterIoCDependencySendCommandTests
         var commandReceiverMock = new Mock<ICommandReciever>();
 
         var command = commandMock.Object;
-        var messageReceiver = commandReceiverMock.Object;
-
-        var obj1 = new Mock<object>();
-        var obj2 = new Mock<object>();
+        var commandReceiver = commandReceiverMock.Object;
 
         IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
@@ -39,7 +36,7 @@ public class RegisterIoCDependencySendCommandTests
         IoC.Resolve<Hwdtech.ICommand>(
                 "IoC.Register",
                 "Adapters.ICommandReciever",
-                (object[] args) => messageReceiver
+                (object[] args) => commandReceiver
             )
             .Execute();
 
@@ -48,7 +45,7 @@ public class RegisterIoCDependencySendCommandTests
 
         var resolveIoCDependencySendCommand = IoC.Resolve<Lib.ICommand>(
             "Commands.Send",
-            new object[] { obj1.Object, obj2.Object }
+            new object[] { command, commandReceiver }
         );
 
         Assert.NotNull(resolveIoCDependencySendCommand);
