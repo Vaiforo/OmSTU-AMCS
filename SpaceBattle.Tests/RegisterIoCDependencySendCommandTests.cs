@@ -20,20 +20,16 @@ public class RegisterIoCDependencySendCommandTests
     [Fact]
     public void RegisterIoCDependencySendCommandResolvePositiveTest()
     {
-        var commandMock = new Mock<Lib.ICommand>();
+        var commandMock = new Mock<ICommand>();
         var commandReceiverMock = new Mock<ICommandReciever>();
 
         var command = commandMock.Object;
         var commandReceiver = commandReceiverMock.Object;
 
-        IoC.Resolve<Hwdtech.ICommand>(
-                "IoC.Register",
-                "Adapters.ICommand",
-                (object[] args) => command
-            )
+        IoC.Resolve<ICommand>("IoC.Register", "Adapters.ICommand", (object[] args) => command)
             .Execute();
 
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Adapters.ICommandReciever",
                 (object[] args) => commandReceiver
@@ -43,7 +39,7 @@ public class RegisterIoCDependencySendCommandTests
         var registerIoCDependencySendCommand = new RegisterIoCDependencySendCommand();
         registerIoCDependencySendCommand.Execute();
 
-        var resolveIoCDependencySendCommand = IoC.Resolve<Lib.ICommand>(
+        var resolveIoCDependencySendCommand = IoC.Resolve<ICommand>(
             "Commands.Send",
             new object[] { command, commandReceiver }
         );
