@@ -18,6 +18,5 @@ public class EndCommandTests
 
         var endCommand = new EndCommand(dict, "startCommand");
         endCommand.Execute();
-
     }
 }
