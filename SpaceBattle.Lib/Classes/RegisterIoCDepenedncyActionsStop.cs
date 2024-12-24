@@ -6,7 +6,7 @@ public class RegisterIoCDependencyActionsStop : ICommand
 {
     public void Execute()
     {
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Actions.Stop",
                 (object[] args) =>

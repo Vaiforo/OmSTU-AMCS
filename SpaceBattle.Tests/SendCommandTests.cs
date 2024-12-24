@@ -10,7 +10,7 @@ public class SendCommandTests
     public SendCommandTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
@@ -20,7 +20,7 @@ public class SendCommandTests
     [Fact]
     public void SendCommandSendedCommandToCommandRecieverPositiveTest()
     {
-        var commandMock = new Mock<Lib.ICommand>();
+        var commandMock = new Mock<ICommand>();
         var cmd = commandMock.Object;
 
         var commandRecieverMock = new Mock<ICommandReciever>();
@@ -35,7 +35,7 @@ public class SendCommandTests
     [Fact]
     public void SendCommandSendedCommandToCommandRecieverICommandRecieverCannotGetCommandNegativeTest()
     {
-        var commandMock = new Mock<Lib.ICommand>();
+        var commandMock = new Mock<ICommand>();
         var cmd = commandMock.Object;
 
         var commandRecieverMock = new Mock<ICommandReciever>();
