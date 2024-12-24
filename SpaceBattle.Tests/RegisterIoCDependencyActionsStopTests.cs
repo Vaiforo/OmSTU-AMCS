@@ -9,7 +9,7 @@ public class RegisterIoCDependencySendActionStopTests
     public RegisterIoCDependencySendActionStopTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
-        IoC.Resolve<Hwdtech.ICommand>(
+        IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
@@ -29,7 +29,7 @@ public class RegisterIoCDependencySendActionStopTests
         order["Dictionary"] = dict;
         order["Label"] = label;
 
-        var resolveIoCDependencyActionStop = IoC.Resolve<Lib.ICommand>("Actions.Stop", order);
+        var resolveIoCDependencyActionStop = IoC.Resolve<ICommand>("Actions.Stop", order);
         Assert.NotNull(resolveIoCDependencyActionStop);
         Assert.IsType<EndCommand>(resolveIoCDependencyActionStop);
     }
