@@ -13,7 +13,7 @@ public class EndCommand : ICommand
 
     public void Execute()
     {
-        var commandInjectable = (CommandInjectableCommand)_dict[_label];
+        var commandInjectable = (ICommandInjectable)_dict[_label];
         commandInjectable.Inject(new EmptyCommand());
     }
 }
