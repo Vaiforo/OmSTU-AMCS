@@ -6,11 +6,9 @@ public class RegisterIoCDependencyEmptyCommand : ICommand
 {
     public void Execute()
     {
-        IoC.Resolve<Hwdtech.ICommand>(
-                "IoC.Register",
-                "Commands.Empty",
-                (object[] args) => new EmptyCommand()
-            )
+        var emptyCommand = new EmptyCommand();
+
+        IoC.Resolve<ICommand>("IoC.Register", "Commands.Empty", (object[] args) => emptyCommand)
             .Execute();
     }
 }
