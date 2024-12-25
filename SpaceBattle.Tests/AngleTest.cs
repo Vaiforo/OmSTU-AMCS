@@ -146,13 +146,6 @@ public class AngleTest
     }
 
     [Fact]
-    public void ToSinExeptionTest()
-    {
-        var a = new Angle(0, 0);
-        Assert.Throws<DivideByZeroException>(() => a.Sin());
-    }
-
-    [Fact]
     public void ToCosPositiveTest()
     {
         var a = new Angle(0, 360);

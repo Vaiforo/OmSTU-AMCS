@@ -7,7 +7,7 @@ public class Angle
 
     public Angle(int d, int n)
     {
-        degrees = d;
+        degrees = d % n;
         sectors = n;
     }
 
