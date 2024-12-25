@@ -36,20 +36,15 @@ public class Angle
         return !(a1 == a2);
     }
 
-    private double ToRadians()
+    public double ToRadians()
     {
         double _degrees = degrees * 360 / sectors;
         return _degrees * Math.PI / 180.0;
     }
 
-    public double Sin()
+    public static implicit operator double(Angle a)
     {
-        return Math.Sin(ToRadians());
-    }
-
-    public double Cos()
-    {
-        return Math.Cos(ToRadians());
+        return (double)a.degrees / a.sectors * 2 * Math.PI;
     }
 
     public override bool Equals(object? obj)

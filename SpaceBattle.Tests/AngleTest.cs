@@ -145,16 +145,25 @@ public class AngleTest
     }
 
     [Fact]
+    public void TestImplicitOperator_CorrectConversion()
+    {
+        var angle = new Angle(90, 360);
+        double result = angle;
+        var expected = (double)90 / 360 * 2 * Math.PI;
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
     public void ToSinPositiveTest()
     {
         var a = new Angle(0, 360);
-        Assert.Equal(0.0, a.Sin());
+        Assert.Equal(0.0, Math.Sin(a.ToRadians()));
     }
 
     [Fact]
     public void ToCosPositiveTest()
     {
         var a = new Angle(0, 360);
-        Assert.Equal(1, a.Cos());
+        Assert.Equal(1, Math.Cos(a.ToRadians()));
     }
 }
