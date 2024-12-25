@@ -7,6 +7,11 @@ public class Angle
 
     public Angle(int d, int n)
     {
+        if (n == 0)
+        {
+            throw new DivideByZeroException();
+        }
+
         degrees = d % n;
         sectors = n;
     }

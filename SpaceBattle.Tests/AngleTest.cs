@@ -47,6 +47,12 @@ public class AngleTest
     }
 
     [Fact]
+    public void AngleTryingToCreateZeroSectorTest()
+    {
+        Assert.Throws<DivideByZeroException>(() => new Angle(2, 0));
+    }
+
+    [Fact]
     public void AttemptingToAddValueAnglePositiveTest()
     {
         var a = new Angle(5, 8);
