@@ -3,7 +3,8 @@ name: CI
 on:
   push:
     branches:
-      - 'Lab**'
+      - main
+      - 'dev/**'
 
   pull_request:
     branches:
