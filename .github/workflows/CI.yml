@@ -7,7 +7,7 @@ on:
 
   pull_request:
     branches:
-      - main
+      - dev/endMovementM
 
 jobs:
   build:
@@ -29,6 +29,9 @@ jobs:
           dotnet new tool-manifest
           dotnet tool install dotnet-coverage
           dotnet tool install coverlet.console
+      
+      - name: Checkstyle
+        run: dotnet format --verify-no-changes
 
       - name: Build
         run: dotnet build SpaceBattle.Lib --no-restore /p:ContinuousIntegrationBuild=true
