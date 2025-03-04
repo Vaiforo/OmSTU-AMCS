@@ -2,9 +2,11 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-public interface IGameObjectRepository
+public interface IGameObjectsRepository
 {
-    void AddGameObject(string str, Object object);
+    Dictionary<string, object> repo { get; }
+
+    void AddGameObject(string str, object obj);
     object GetGameObject(string str);
     void RemoveGameObject(string str);
 }
