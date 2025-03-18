@@ -27,6 +27,6 @@ public class TorpedoStartMove : ICommand
             { "Label", "MoveTorpedo" },
         };
 
-        IoC.Resolve<ICommand>("Commands.StartMove", context).Execute();
+        IoC.Resolve<ICommand>("Actions.Start", context).Execute();
     }
 }

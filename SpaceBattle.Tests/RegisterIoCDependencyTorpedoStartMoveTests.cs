@@ -18,7 +18,7 @@ public class RegisterIoCDependencyTorpedoStartMoveTests
     }
 
     [Fact]
-    public void ActionsStartRegisteredPositiveTest()
+    public void ActionsMoveTorpedoRegisteredPositiveTest()
     {
         new RegisterIoCDependencyTorpedoStartMove().Execute();
 
