@@ -2,6 +2,6 @@
 
 public interface IRotatingObject
 {
-    public Angle Angle { get; set; }
-    public Angle AngleVelocity { get; }
+    Angle Angle { get; set; }
+    Angle AngleVelocity { get; }
 }
