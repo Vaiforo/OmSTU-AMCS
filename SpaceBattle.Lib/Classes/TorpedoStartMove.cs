@@ -6,13 +6,13 @@ public class TorpedoStartMove : ICommand
 {
     private readonly IMovingObject _torpedo;
     private readonly IDictionary<string, object> _dict;
-    private readonly ISender _sender;
+    private readonly ISender _queue;
 
-    public TorpedoStartMove(IMovingObject torpedo, IDictionary<string, object> dict, ISender sender)
+    public TorpedoStartMove(IMovingObject torpedo, IDictionary<string, object> dict, ISender queue)
     {
         _torpedo = torpedo;
         _dict = dict;
-        _sender = sender;
+        _queue = queue;
     }
 
     public void Execute()
@@ -23,7 +23,7 @@ public class TorpedoStartMove : ICommand
         {
             { "Command", command },
             { "Dictionary", _dict },
-            { "Sender", _sender },
+            { "Sender", _queue },
             { "Label", "MoveTorpedo" },
         };
 
