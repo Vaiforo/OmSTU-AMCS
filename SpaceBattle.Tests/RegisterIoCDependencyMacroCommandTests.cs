@@ -13,7 +13,8 @@ public class RegisterIoCDependencyMacroCommandTests
         IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
-            ).Execute();
+            )
+            .Execute();
     }
 
     [Fact]
@@ -26,14 +27,15 @@ public class RegisterIoCDependencyMacroCommandTests
                 "IoC.Register",
                 "Adapters.IEnumerable<ICommand>",
                 (object[] args) => enumerable.Object
-            ).Execute();
+            )
+            .Execute();
 
         var RegisterIoCDependencyMacroCommand = new RegisterIoCDependencyMacroCommand();
         RegisterIoCDependencyMacroCommand.Execute();
 
         var resolveIoCDependencyMacroCommand = IoC.Resolve<ICommand>(
             "Commands.Macro",
-             new ICommand[] { obj.Object }
+            new ICommand[] { obj.Object }
         );
 
         Assert.NotNull(resolveIoCDependencyMacroCommand);
