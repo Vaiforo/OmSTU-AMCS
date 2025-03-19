@@ -1,4 +1,5 @@
 ﻿using Hwdtech;
+
 namespace SpaceBattle.Lib;
 
 public class CreateMacroCommandStrategy(string commandSpec)
@@ -9,7 +10,10 @@ public class CreateMacroCommandStrategy(string commandSpec)
     {
         var commandNames = IoC.Resolve<List<string>>("Specs." + _commandSpec);
         var commands = commandNames.Select(n => IoC.Resolve<ICommand>(n, args)).ToArray();
-        var macroCommand = IoC.Resolve<ICommand>("Commands.Macro", commands.Cast<object>().ToArray());
+        var macroCommand = IoC.Resolve<ICommand>(
+            "Commands.Macro",
+            commands.Cast<object>().ToArray()
+        );
 
         return macroCommand;
     }
