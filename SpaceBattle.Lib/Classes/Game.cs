@@ -19,7 +19,7 @@ public class Game : ICommand
         IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
         var queue = IoC.Resolve<IQueue>("Game.Queue");
 
-        while(stopwatch.ElapsedMilliseconds < 50 && queue.Count() == 0)
+        while(stopwatch.ElapsedMilliseconds < 50 && !(queue.Count() == 0))
         {
             var cmd = queue.Take();
             try
