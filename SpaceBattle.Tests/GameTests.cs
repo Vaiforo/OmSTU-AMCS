@@ -33,6 +33,30 @@ public class GameTests
 
         game.Execute();
 
-        command.Verify(cmd => cmd.Execute(), Times.AtLeastOnce);
+        command.Verify(cmd => cmd.Execute(), Times.Once);
+    }
+
+    [Fact]
+    public void GameExecutesCommandNegative()
+    {
+        var command = new Mock<ICommand>();
+        var queue = new Mock<IQueue>();
+        var exceptionMessage = "err";
+
+        command.Setup(cmd => cmd.Execute()).Throws(new Exception(exceptionMessage));
+        queue.Setup(q => q.Count()).Returns(1);
+        queue.Setup(q => q.Take()).Returns(command.Object).Callback(() => {queue.Setup(m => m.Count()).Returns(0);});
+
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue", (object[] args) => queue.Object).Execute();
+
+        var game = new Game(IoC.Resolve<object>("Scopes.Current"));
+
+        var consoleOutput = new StringWriter();
+        Console.SetOut(consoleOutput);
+
+        game.Execute();
+
+        Assert.Contains(exceptionMessage, consoleOutput.ToString());
+        command.Verify(cmd => cmd.Execute(), Times.Once);
     }
 }
