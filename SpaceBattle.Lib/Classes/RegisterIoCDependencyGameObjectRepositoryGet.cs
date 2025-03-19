@@ -4,10 +4,15 @@ namespace SpaceBattle.Lib;
 
 public class RegisterIoCDependencyGameObjectsRepositoryGet : ICommand
 {
+    public readonly Dictionary<string, object> gameObjectsRepository = new Dictionary<string, object>();
+
+    public RegisterIoCDependencyGameObjectsRepositoryGet(Dictionary<string, object> _gameObjectsRepository)
+    {
+        gameObjectsRepository = _gameObjectsRepository;
+    }
+
     public void Execute()
     {
-        var gameObjectsRepository = new Dictionary<string, object>();
-
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.Item.Get",
