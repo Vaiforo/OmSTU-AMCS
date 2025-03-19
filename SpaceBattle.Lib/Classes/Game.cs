@@ -14,14 +14,14 @@ public class Game : ICommand
 
     public void Execute()
     {
-        IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
-
-        var gameGivenTime = IoC.Resolve<int>("Game.GivenTime.Get");
         var stopwatch = Stopwatch.StartNew();
 
-        while(stopwatch.ElapsedMilliseconds < gameGivenTime && !IoC.Resolve<bool>("Game.Queue.IsEmpty"))
+        IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
+        var queue = IoC.Resolve<IQueue>("Game.Queue");
+
+        while(stopwatch.ElapsedMilliseconds < 50 && queue.Count() == 0)
         {
-            var cmd = IoC.Resolve<ICommand>("Game.Queue.Take");
+            var cmd = queue.Take();
             try
             {
                 cmd.Execute();
