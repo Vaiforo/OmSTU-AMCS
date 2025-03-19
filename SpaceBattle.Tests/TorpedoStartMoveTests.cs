@@ -5,9 +5,9 @@ using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
-public class TorpedoStartMoveTests
+public class StartMoveTests
 {
-    public TorpedoStartMoveTests()
+    public StartMoveTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<ICommand>(
@@ -18,13 +18,14 @@ public class TorpedoStartMoveTests
     }
 
     [Fact]
-    public void MoveTorpedoInitPositiveTest()
+    public void StartMoveInitPositiveTest()
     {
         new RegisterIoCDependencyActionsStart().Execute();
 
-        var torpedo = new Mock<IMovingObject>();
+        var gameObject = new Mock<IMovingObject>();
         var dict = new Dictionary<string, object>();
         var sender = new Mock<ISender>();
+        var label = "StartMoveTorpedo";
 
         var moveCommand = new Mock<ICommand>();
         var startMoveCommand = new Mock<ICommand>();
@@ -36,11 +37,11 @@ public class TorpedoStartMoveTests
             )
             .Execute();
 
-        var command = new TorpedoStartMove(torpedo.Object, dict, sender.Object);
+        var command = new StartMove(gameObject.Object, dict, sender.Object, label);
 
         command.Execute();
 
-        Assert.True(dict.ContainsKey("MoveTorpedo"));
-        Assert.Equal(moveCommand.Object, dict["MoveTorpedo"]);
+        Assert.True(dict.ContainsKey("StartMoveTorpedo"));
+        Assert.Equal(moveCommand.Object, dict["StartMoveTorpedo"]);
     }
 }

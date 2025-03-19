@@ -2,20 +2,21 @@
 
 namespace SpaceBattle.Lib;
 
-public class RegisterIoCDependencyTorpedoStartMove : ICommand
+public class RegisterIoCDependencyStartMove : ICommand
 {
     public void Execute()
     {
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "Actions.MoveTorpedo",
+                "Actions.StartMove",
                 (object[] args) =>
                 {
                     var order = (IDictionary<string, object>)args[0];
-                    var torpedo = (IMovingObject)order["Torpedo"];
+                    var torpedo = (IMovingObject)order["GameObject"];
                     var dict = (IDictionary<string, object>)order["Dictionary"];
                     var queue = (ISender)order["Sender"];
-                    return new TorpedoStartMove(torpedo, dict, queue);
+                    var label = (string)order["Label"];
+                    return new StartMove(torpedo, dict, queue, label);
                 }
             )
             .Execute();
