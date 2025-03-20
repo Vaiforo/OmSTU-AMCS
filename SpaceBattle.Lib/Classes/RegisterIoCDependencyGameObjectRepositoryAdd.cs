@@ -23,7 +23,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryAdd : ICommand
 
                     if (gameObjectsRepository.ContainsKey(id))
                     {
-                        throw new Exception("Object with id " + id + "already not exist");
+                        throw new Exception("Object with id " + id + " already exist");
                     }
                     else
                     {

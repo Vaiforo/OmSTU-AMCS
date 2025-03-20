@@ -14,4 +14,16 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemoveTests
             )
             .Execute();
     }
+    
+    [Fact]
+    public void RegisterIoCDependencyGameObjectRepositoryRemovePositiveTest()
+    {
+
+    }
+
+    [Fact]
+    public void RegisterIoCDependencyGameObjectRepositoryRemoveItemDoesNotExistTest()
+    {
+        
+    }
 }
