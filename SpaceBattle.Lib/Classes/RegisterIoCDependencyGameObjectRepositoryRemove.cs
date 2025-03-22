@@ -26,7 +26,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemove : ICommand
                     }
                     else
                     {
-                        throw new Exception("Object with id " + id + "does not exist");
+                        throw new Exception("Object with id " + id + " does not exist");
                     }
                 }
             )
