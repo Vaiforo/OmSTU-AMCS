@@ -16,20 +16,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryAdd : ICommand
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.Item.Add",
-                (object[] args) =>
-                {
-                    var id = (string)args[0];
-                    var item = args[1];
-
-                    if (gameObjectsRepository.ContainsKey(id))
-                    {
-                        throw new Exception("Object with id " + id + " already exist");
-                    }
-                    else
-                    {
-                        gameObjectsRepository.Add(id, item);
-                    }
-                }
+                (object[] args) => new AddObjectRepositoryCommand(gameObjectsRepository, (string)args[0], args[1])
             )
             .Execute();
     }
