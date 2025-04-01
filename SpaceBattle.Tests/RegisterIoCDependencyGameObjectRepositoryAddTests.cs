@@ -1,5 +1,6 @@
 ﻿using Hwdtech;
 using Hwdtech.Ioc;
+using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
 
@@ -18,12 +19,16 @@ public class RegisterIoCDependencyGameObjectsRepositoryAddTests
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryAddPositiveTest()
     {
+        var repo = new Dictionary<string, object>();
+        var registerDependencyCommand = new RegisterIoCDependencyGameObjectsRepositoryAdd(repo);
+        var itemId = "gameItemID";
+        var gameItem = new object();
 
-    }
+        registerDependencyCommand.Execute();
 
-    [Fact]
-    public void RegisterIoCDependencyGameObjectRepositoryAddItemAlreadyExistTest()
-    {
-        
+        var addCommand = IoC.Resolve<ICommand>("Game.Item.Add", itemId, gameItem);
+        addCommand.Execute();
+
+        Assert.True(repo.ContainsKey("gameItemID"));
     }
 }

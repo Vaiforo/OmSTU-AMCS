@@ -18,7 +18,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemoveTests
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryRemovePositiveTest()
     {
-
+        
     }
 
     [Fact]
