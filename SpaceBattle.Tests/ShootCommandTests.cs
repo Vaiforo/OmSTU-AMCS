@@ -22,9 +22,9 @@ namespace SpaceBattle.Lib.Tests
         {
             new RegisterShootDependency().Execute();
 
-            var position = new Vector(new[] { 0, 0 });
-            var shootDirection = new Vector(new[] { 2, 1 });
-            var speed = 2.0;
+            var spawnPosition = new Vector(new[] { 0, 0 });
+            var direction = new Vector(new[] { 2, 1 });
+            var projectileSpeed = 2.0;
             var cmd = new Mock<ICommand>();
             var weaponMock = new Mock<IMovingObject>();
             IoC.Resolve<ICommand>(
@@ -66,7 +66,7 @@ namespace SpaceBattle.Lib.Tests
                 )
                 .Execute();
 
-            var shootCommand = new ShootCommand(position, shootDirection, speed);
+            var shootCommand = new ShootCommand(spawnPosition, direction, projectileSpeed);
             shootCommand.Execute();
 
             Assert.IsType<ShootCommand>(shootCommand);
