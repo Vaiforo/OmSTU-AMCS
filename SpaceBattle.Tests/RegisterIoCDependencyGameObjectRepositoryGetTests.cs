@@ -15,8 +15,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
             )
             .Execute();
     }
-    
-    
+
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryGetPositiveTest()
     {
@@ -29,7 +28,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
         registerDependencyCommandAdd.Execute();
 
         var addCommand = IoC.Resolve<ICommand>("Game.Item.Add", itemId, gameItem);
-        addCommand.Execute();        
+        addCommand.Execute();
 
         registerDependencyCommandGet.Execute();
         var recievedInfo = IoC.Resolve<object>("Game.Item.Get", itemId);

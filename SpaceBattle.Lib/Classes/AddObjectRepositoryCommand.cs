@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -18,12 +18,12 @@ public class AddObjectRepositoryCommand : ICommand
     public void Execute()
     {
         if (gameObjectsRepository.ContainsKey(id))
-            {
-                throw new Exception("Object with id " + id + " already exist");
-            }
+        {
+            throw new Exception("Object with id " + id + " already exist");
+        }
         else
-            {
-                gameObjectsRepository.Add(id, item);
-            }
+        {
+            gameObjectsRepository.Add(id, item);
+        }
     }
 }

@@ -15,8 +15,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemoveTests
             )
             .Execute();
     }
-    
-    
+
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryRemovePositiveTest()
     {
@@ -29,10 +28,10 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemoveTests
         registerDependencyCommandAdd.Execute();
 
         var addCommand = IoC.Resolve<ICommand>("Game.Item.Add", itemId, gameItem);
-        addCommand.Execute();        
+        addCommand.Execute();
 
         registerDependencyCommandRemove.Execute();
-        
+
         var removeCommand = IoC.Resolve<ICommand>("Game.Item.Remove", itemId);
         removeCommand.Execute();
 
