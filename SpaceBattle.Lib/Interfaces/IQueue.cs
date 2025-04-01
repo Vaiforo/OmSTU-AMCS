@@ -2,9 +2,8 @@ using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
-public interface IQueue
+public interface IQueue : ISender
 {
-    void Add(ICommand command);
     ICommand Take();
     int? Count();
 }
