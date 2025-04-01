@@ -16,6 +16,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemoveTests
             .Execute();
     }
     
+    
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryRemovePositiveTest()
     {

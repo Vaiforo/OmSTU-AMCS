@@ -16,6 +16,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryAddTests
             .Execute();
     }
 
+
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryAddPositiveTest()
     {
