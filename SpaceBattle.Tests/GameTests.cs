@@ -20,42 +20,47 @@ public class GameTests
     [Fact]
     public void GameExecutesCommandPositive()
     {
-        var command = new Mock<ICommand>();
-        var queue = new Mock<IQueue>();
+        var commandMock = new Mock<ICommand>();
+        var gameBehaviour = new RegisterIoCDependencyGameBehaviour();
+        gameBehaviour.Execute();
+        var canContinue = new RegisterIoCDependencyGameCanContinue();
+        canContinue.Execute();
+        var count = 1;
 
-        queue.Setup(q => q.Count()).Returns(1);
-        queue.Setup(q => q.Take()).Returns(command.Object).Callback(() => {queue.Setup(m => m.Count()).Returns(0);});
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Get", (object[] args) => commandMock.Object).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => () => 100).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => () => count).Execute();
 
-        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue", (object[] args) => queue.Object).Execute();
+        commandMock.Setup(c => c.Execute()).Callback(() => {count--; });
 
         var game = new Game(IoC.Resolve<object>("Scopes.Current"));
-
         game.Execute();
-        
-        command.Verify(cmd => cmd.Execute(), Times.Once);
+
+        commandMock.Verify(c => c.Execute(), Times.Once);
     }
 
     [Fact]
     public void GameExecutesCommandNegative()
     {
-        var command = new Mock<ICommand>();
-        var queue = new Mock<IQueue>();
-        var exceptionMessage = "err";
+        var commandMock = new Mock<ICommand>();
+        var exceptionMock = new Mock<ICommand>();
+        var gameBehaviour = new RegisterIoCDependencyGameBehaviour();
+        gameBehaviour.Execute();
+        var canContinue = new RegisterIoCDependencyGameCanContinue();
+        canContinue.Execute();
+        var count = 1;
 
-        command.Setup(cmd => cmd.Execute()).Throws(new Exception(exceptionMessage));
-        queue.Setup(q => q.Count()).Returns(1);
-        queue.Setup(q => q.Take()).Returns(command.Object).Callback(() => {queue.Setup(m => m.Count()).Returns(0);});
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Get", (object[] args) => commandMock.Object).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => () => 100).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => () => count).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "ExceptionHandler.Handle", (object[] args) => exceptionMock.Object).Execute();
 
-        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue", (object[] args) => queue.Object).Execute();
+        commandMock.Setup(c => c.Execute()).Throws(new Exception());
+        exceptionMock.Setup(c => c.Execute()).Callback(() => {count=0; });
 
         var game = new Game(IoC.Resolve<object>("Scopes.Current"));
-
-        var consoleOutput = new StringWriter();
-        Console.SetOut(consoleOutput);
-
         game.Execute();
 
-        Assert.Contains(exceptionMessage, consoleOutput.ToString());
-        command.Verify(cmd => cmd.Execute(), Times.Once);
+        exceptionMock.Verify(e => e.Execute(), Times.Once);
     }
 }
