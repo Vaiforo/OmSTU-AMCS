@@ -1,4 +1,3 @@
-using System.Numerics;
 using Hwdtech;
 using Hwdtech.Ioc;
 using Moq;
@@ -32,7 +31,7 @@ public class GameTests
         var game = new Game(IoC.Resolve<object>("Scopes.Current"));
 
         game.Execute();
-
+        
         command.Verify(cmd => cmd.Execute(), Times.Once);
     }
 
