@@ -37,6 +37,6 @@ public class ShootCommand : ICommand
             )
             .Execute();
 
-        IoC.Resolve<ICommand>("GameItem.Add", weaponGuid, weaponObject).Execute();
+        IoC.Resolve<ICommand>("Game.Item.Add", weaponGuid, weaponObject).Execute();
     }
 }
