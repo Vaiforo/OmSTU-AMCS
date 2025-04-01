@@ -16,19 +16,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryRemove : ICommand
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.Item.Remove",
-                (object[] args) =>
-                {
-                    var id = (string)args[0];
-
-                    if (gameObjectsRepository.ContainsKey(id))
-                    {
-                        gameObjectsRepository.Remove(id);
-                    }
-                    else
-                    {
-                        throw new Exception("Object with id " + id + " does not exist");
-                    }
-                }
+                (object[] args) => new RemoveObjectRepositoryCommand(gameObjectsRepository, (string)args[0])
             )
             .Execute();
     }
