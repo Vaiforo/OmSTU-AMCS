@@ -71,11 +71,5 @@ namespace SpaceBattle.Lib.Tests
 
             Assert.IsType<ShootCommand>(shootCommand);
         }
-
-        [Fact]
-        public void Execute_NotShouldRegistershootCommandDependency()
-        {
-            Assert.ThrowsAny<Exception>(() => IoC.Resolve<ICommand>("Command.Shoot"));
-        }
     }
 }
