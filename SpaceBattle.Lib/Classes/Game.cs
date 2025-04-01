@@ -15,21 +15,12 @@ public class Game : ICommand
     public void Execute()
     {
         var stopwatch = Stopwatch.StartNew();
-
+        
         IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
-        var queue = IoC.Resolve<IQueue>("Game.Queue");
 
-        while(stopwatch.ElapsedMilliseconds < 50 && !(queue.Count() == 0))
+        while(IoC.Resolve<Func<bool>>("Game.CanContinue", stopwatch.ElapsedMilliseconds)())
         {
-            var cmd = queue.Take();
-            try
-            {
-                cmd.Execute();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            IoC.Resolve<ICommand>("Game.GameBehaviour");
         }
 
         stopwatch.Stop();
