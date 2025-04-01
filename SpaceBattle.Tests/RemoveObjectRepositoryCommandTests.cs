@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
 
 namespace SpaceBattle.Tests;
@@ -16,14 +16,8 @@ public class RemoveObjectRepositoryCommandTests
     }
 
     [Fact]
-    public void GameObjectRepositoryRemovePositiveTest()
-    {
-
-    }
+    public void GameObjectRepositoryRemovePositiveTest() { }
 
     [Fact]
-    public void GameObjectRepositoryRemoveItemDoesNotExistTest()
-    {
-        
-    }
+    public void GameObjectRepositoryRemoveItemDoesNotExistTest() { }
 }

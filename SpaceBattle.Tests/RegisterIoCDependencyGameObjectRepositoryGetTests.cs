@@ -14,16 +14,10 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
             )
             .Execute();
     }
-    
-    [Fact]
-    public void RegisterIoCDependencyGameObjectRepositoryGetPositiveTest()
-    {
-        
-    }
 
     [Fact]
-    public void RegisterIoCDependencyGameObjectRepositoryGetItemDoesNotExisTest()
-    {
-        
-    }
+    public void RegisterIoCDependencyGameObjectRepositoryGetPositiveTest() { }
+
+    [Fact]
+    public void RegisterIoCDependencyGameObjectRepositoryGetItemDoesNotExisTest() { }
 }

@@ -16,14 +16,8 @@ public class RegisterIoCDependencyGameObjectsRepositoryAddTests
     }
 
     [Fact]
-    public void RegisterIoCDependencyGameObjectRepositoryAddPositiveTest()
-    {
-
-    }
+    public void RegisterIoCDependencyGameObjectRepositoryAddPositiveTest() { }
 
     [Fact]
-    public void RegisterIoCDependencyGameObjectRepositoryAddItemAlreadyExistTest()
-    {
-        
-    }
+    public void RegisterIoCDependencyGameObjectRepositoryAddItemAlreadyExistTest() { }
 }
