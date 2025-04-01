@@ -58,7 +58,7 @@ namespace SpaceBattle.Lib.Tests
 
             IoC.Resolve<ICommand>(
                     "IoC.Register",
-                    "GameItem.Add",
+                    "Game.Item.Add",
                     (object[] args) =>
                     {
                         return cmd.Object;
