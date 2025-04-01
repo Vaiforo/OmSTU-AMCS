@@ -18,7 +18,7 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryGetPositiveTest()
     {
-
+        
     }
 
     [Fact]
