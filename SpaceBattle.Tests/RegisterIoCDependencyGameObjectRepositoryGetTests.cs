@@ -15,7 +15,6 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
             )
             .Execute();
     }
-    
 
     [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryGetPositiveTest()
@@ -37,13 +36,13 @@ public class RegisterIoCDependencyGameObjectsRepositoryGetTests
         Assert.True(recievedInfo == gameItem);
     }
 
-        [Fact]
+    [Fact]
     public void RegisterIoCDependencyGameObjectRepositoryGetItemDoesNotExist()
     {
         var repo = new Dictionary<string, object>();
         var registerDependencyCommandGet = new RegisterIoCDependencyGameObjectsRepositoryGet(repo);
         var itemId = "gameItemID";
-        var gameItem = new object();    
+        var gameItem = new object();
 
         registerDependencyCommandGet.Execute();
 
