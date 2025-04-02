@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -9,7 +9,8 @@ public class RegisterIoCDependencyGameBehaviour : ICommand
         IoC.Resolve<ICommand>("IoC.Register",
         "Game.GameBehaviour",
 
-        (object[] args) => {
+        (object[] args) =>
+        {
             var command = IoC.Resolve<ICommand>("Game.Queue.Get");
 
             try

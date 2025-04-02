@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
@@ -31,7 +31,7 @@ public class GameTests
         IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => () => 100).Execute();
         IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => () => count).Execute();
 
-        commandMock.Setup(c => c.Execute()).Callback(() => {count--; });
+        commandMock.Setup(c => c.Execute()).Callback(() => { count--; });
 
         var game = new Game(IoC.Resolve<object>("Scopes.Current"));
         game.Execute();
@@ -56,7 +56,7 @@ public class GameTests
         IoC.Resolve<ICommand>("IoC.Register", "ExceptionHandler.Handle", (object[] args) => exceptionMock.Object).Execute();
 
         commandMock.Setup(c => c.Execute()).Throws(new Exception());
-        exceptionMock.Setup(c => c.Execute()).Callback(() => {count=0; });
+        exceptionMock.Setup(c => c.Execute()).Callback(() => { count = 0; });
 
         var game = new Game(IoC.Resolve<object>("Scopes.Current"));
         game.Execute();

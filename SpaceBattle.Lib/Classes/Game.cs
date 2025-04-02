@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Hwdtech;
 
 namespace SpaceBattle.Lib;
@@ -15,10 +15,10 @@ public class Game : ICommand
     public void Execute()
     {
         var stopwatch = Stopwatch.StartNew();
-        
+
         IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
 
-        while(IoC.Resolve<Func<bool>>("Game.CanContinue", stopwatch.ElapsedMilliseconds)())
+        while (IoC.Resolve<Func<bool>>("Game.CanContinue", stopwatch.ElapsedMilliseconds)())
         {
             IoC.Resolve<ICommand>("Game.GameBehaviour");
         }

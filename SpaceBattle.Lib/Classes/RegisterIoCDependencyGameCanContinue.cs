@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -9,7 +9,8 @@ public class RegisterIoCDependencyGameCanContinue : ICommand
         IoC.Resolve<ICommand>("IoC.Register",
         "Game.CanContinue",
 
-        (object[] args) => {
+        (object[] args) =>
+        {
             var elapsedTime = (long)args[0];
             var allowedTime = IoC.Resolve<Func<int>>("Game.AllowedTime.Get")();
             var queueCount = IoC.Resolve<Func<int>>("Game.Queue.Count")();
