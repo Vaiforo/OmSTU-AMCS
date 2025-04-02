@@ -30,7 +30,7 @@ public class AuthCommandTests
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "GameItems.GetAccessUsers",
+                "GameSubjects.GetAvailableObjects",
                 new Func<object[], object>(args => gameRepoReturner.Object((string)args[0]))
             )
             .Execute();
@@ -52,13 +52,35 @@ public class AuthCommandTests
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "GameItems.GetAccessUsers",
+                "GameSubjects.GetAvailableObjects",
                 new Func<object[], object>(args => gameRepoReturner.Object((string)args[0]))
             )
             .Execute();
 
         var cmd = new AuthCommand(userID, objectID, action);
 
+        Assert.Throws<UnauthorizedAccessException>(() => cmd.Execute());
+    }
+
+    [Fact]
+    public void AuthResolveNegativeTest()
+    {
+        var userID = "123456789";
+        var objectID = "123456789";
+        var action = "Fire";
+        var accessedUsers = new List<string> { };
+
+        var gameRepoReturner = new Mock<Func<string, IEnumerable<string>>>();
+        gameRepoReturner.Setup(f => f(It.IsAny<string>())).Returns(accessedUsers);
+
+        IoC.Resolve<ICommand>(
+                "IoC.Register",
+                "GameSubjects.GetAvailableObjects",
+                new Func<object[], object>(args => gameRepoReturner.Object((string)args[0]))
+            )
+            .Execute();
+
+        var cmd = new AuthCommand(userID, objectID, action);
         Assert.Throws<UnauthorizedAccessException>(() => cmd.Execute());
     }
 }

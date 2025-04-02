@@ -17,12 +17,12 @@ public class AuthCommand : ICommand
 
     public void Execute()
     {
-        var accessedUsers = IoC.Resolve<IEnumerable<string>>(
-            "GameItems.GetAccessUsers",
-            $"{_objectID}.{_action}"
+        var availablObjects = IoC.Resolve<IEnumerable<string>>(
+            "GameSubjects.GetAvailableObjects",
+            $"{_userID}.{_action}"
         );
 
-        if (!accessedUsers.Contains(_userID))
+        if (!availablObjects.Contains(_objectID))
         {
             throw new UnauthorizedAccessException(
                 $"User {_userID} does not have access to action {_action} on object {_objectID}"
