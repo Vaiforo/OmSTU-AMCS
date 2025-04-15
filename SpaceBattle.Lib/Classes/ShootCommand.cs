@@ -2,41 +2,36 @@
 
 namespace SpaceBattle.Lib;
 
+public class WeaponParameters
+{
+    public Vector SpawnPosition { get; }
+    public Vector Direction { get; }
+    public double ProjectileSpeed { get; }
+
+    public WeaponParameters(Vector spawnPosition, Vector direction, double projectileSpeed)
+    {
+        SpawnPosition = spawnPosition;
+        Direction = direction;
+        ProjectileSpeed = projectileSpeed;
+    }
+}
+
 public class ShootCommand : ICommand
 {
-    private readonly Vector spawnPosition;
-    private readonly Vector direction;
-    private readonly double projectileSpeed;
+    private readonly WeaponParameters parameters;
 
-    public ShootCommand(Vector spawnPosition, Vector direction, double projectileSpeed)
+    public ShootCommand(WeaponParameters parameters)
     {
-        this.spawnPosition = spawnPosition;
-        this.direction = direction;
-        this.projectileSpeed = projectileSpeed;
+        this.parameters = parameters;
     }
 
     public void Execute()
     {
-        var weaponGuid = Guid.NewGuid().ToString();
-        var weaponCreationParams = IoC.Resolve<IDictionary<string, object>>(
-            "Weapon.Create",
-            weaponGuid
-        );
+        var weaponObject = IoC.Resolve<IWeapon>("Weapon.Create");
 
-        var weaponObject = IoC.Resolve<IMovingObject>(
-            "Adapters.IMovingObject",
-            weaponCreationParams["Id"]
-        );
+        weaponObject.Setup(parameters);
+        IoC.Resolve<ICommand>("Weapon.Setup", weaponObject).Execute();
 
-        IoC.Resolve<ICommand>(
-                "Weapon.Setup",
-                weaponObject,
-                spawnPosition,
-                direction,
-                projectileSpeed
-            )
-            .Execute();
-
-        IoC.Resolve<ICommand>("Game.Item.Add", weaponGuid, weaponObject).Execute();
+        IoC.Resolve<ICommand>("Game.Item.Add", weaponObject).Execute();
     }
 }

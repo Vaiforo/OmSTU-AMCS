@@ -4,9 +4,9 @@ using Moq;
 
 namespace SpaceBattle.Lib.Tests
 {
-    public class shootCommandTests
+    public class ShootCommandTests
     {
-        public shootCommandTests()
+        public ShootCommandTests()
         {
             new InitScopeBasedIoCImplementationCommand().Execute();
 
@@ -18,27 +18,20 @@ namespace SpaceBattle.Lib.Tests
         }
 
         [Fact]
-        public void Execute_ShouldRegistershootCommandDependency()
+        public void Execute_ShouldCreateAndSetupWeaponCorrectly()
         {
-            new RegisterShootDependency().Execute();
-
             var spawnPosition = new Vector(new[] { 0, 0 });
             var direction = new Vector(new[] { 2, 1 });
             var projectileSpeed = 2.0;
-            var cmd = new Mock<ICommand>();
-            var weaponMock = new Mock<IMovingObject>();
+            var weaponParameters = new WeaponParameters(spawnPosition, direction, projectileSpeed);
+
+            var weaponMock = new Mock<IWeapon>();
+            var setupCommandMock = new Mock<ICommand>();
+            var addItemCommandMock = new Mock<ICommand>();
+
             IoC.Resolve<ICommand>(
                     "IoC.Register",
                     "Weapon.Create",
-                    (object[] args) =>
-                    {
-                        return new Dictionary<string, object> { { "Id", (string)args[0] } };
-                    }
-                )
-                .Execute();
-            IoC.Resolve<ICommand>(
-                    "IoC.Register",
-                    "Adapters.IMovingObject",
                     (object[] args) =>
                     {
                         return weaponMock.Object;
@@ -51,7 +44,7 @@ namespace SpaceBattle.Lib.Tests
                     "Weapon.Setup",
                     (object[] args) =>
                     {
-                        return cmd.Object;
+                        return setupCommandMock.Object;
                     }
                 )
                 .Execute();
@@ -61,13 +54,28 @@ namespace SpaceBattle.Lib.Tests
                     "Game.Item.Add",
                     (object[] args) =>
                     {
-                        return cmd.Object;
+                        return addItemCommandMock.Object;
                     }
                 )
                 .Execute();
 
-            var shootCommand = new ShootCommand(spawnPosition, direction, projectileSpeed);
+            var shootCommand = new ShootCommand(weaponParameters);
             shootCommand.Execute();
+
+            weaponMock.Verify(
+                w =>
+                    w.Setup(
+                        It.Is<WeaponParameters>(p =>
+                            p.SpawnPosition == spawnPosition
+                            && p.Direction == direction
+                            && p.ProjectileSpeed == projectileSpeed
+                        )
+                    ),
+                Times.Once()
+            );
+
+            setupCommandMock.Verify(c => c.Execute(), Times.Once());
+            addItemCommandMock.Verify(c => c.Execute(), Times.Once());
 
             Assert.IsType<ShootCommand>(shootCommand);
         }
