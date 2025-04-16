@@ -29,11 +29,11 @@ public class RegisterIoCDependencyGameBehaviourTests
         var registerIoCDependencyGameBehaviour = new RegisterIoCDependencyGameBehaviour();
         registerIoCDependencyGameBehaviour.Execute();
 
-        var resolveIoCDependencyGameBehaviour = IoC.Resolve<ICommand>(
+        var resolveIoCDependencyGameBehaviour = IoC.Resolve<Action>(
             "Game.GameBehaviour"
         );
 
         Assert.NotNull(resolveIoCDependencyGameBehaviour);
-        Assert.IsType<EmptyCommand>(resolveIoCDependencyGameBehaviour);
+        Assert.IsType<Action>(resolveIoCDependencyGameBehaviour);
     }
 }

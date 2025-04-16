@@ -19,16 +19,16 @@ public class RegisterIoCDependencyGameCanContinueTests
     [Fact]
     public void RegisterIoCDependencyGameCanContinuePositiveTestAndReturnsTrue()
     {
-        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => () => 100).Execute();
-        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => () => 1).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => (object)100).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => (object)1).Execute();
 
         var registerIoCDependencyGameCanContinue = new RegisterIoCDependencyGameCanContinue();
         registerIoCDependencyGameCanContinue.Execute();
 
-        var resolveIoCDependencyGameCanContinue = IoC.Resolve<Func<bool>>(
+        var resolveIoCDependencyGameCanContinue = IoC.Resolve<bool>(
             "Game.CanContinue",
             (long)20
-        )();
+        );
 
         Assert.True(resolveIoCDependencyGameCanContinue);
     }
@@ -36,16 +36,16 @@ public class RegisterIoCDependencyGameCanContinueTests
     [Fact]
     public void RegisterIoCDependencyGameCanContinuePositiveTestAndReturnsFalse()
     {
-        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => () => 100).Execute();
-        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => () => 1).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.AllowedTime.Get", (object[] args) => (object)100).Execute();
+        IoC.Resolve<ICommand>("IoC.Register", "Game.Queue.Count", (object[] args) => (object)1).Execute();
 
         var registerIoCDependencyGameCanContinue = new RegisterIoCDependencyGameCanContinue();
         registerIoCDependencyGameCanContinue.Execute();
 
-        var resolveIoCDependencyGameCanContinue = IoC.Resolve<Func<bool>>(
+        var resolveIoCDependencyGameCanContinue = IoC.Resolve<bool>(
             "Game.CanContinue",
             (long)120
-        )();
+        );
 
         Assert.False(resolveIoCDependencyGameCanContinue);
     }
