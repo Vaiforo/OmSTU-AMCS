@@ -18,7 +18,7 @@ public class Game : ICommand
 
         IoC.Resolve<ICommand>("Scopes.Current.Set", _gameScope).Execute();
 
-        while(IoC.Resolve<bool>("Game.CanContinue", stopwatch.ElapsedMilliseconds))
+        while (IoC.Resolve<bool>("Game.CanContinue", stopwatch.ElapsedMilliseconds))
         {
             IoC.Resolve<Action>("Game.GameBehaviour")();
         }
