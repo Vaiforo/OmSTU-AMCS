@@ -8,23 +8,7 @@ public class RegisterIoCDependencyGameBehaviour : ICommand
     {
         IoC.Resolve<ICommand>("IoC.Register",
         "Game.GameBehaviour",
-
-        (object[] args) =>
-        {
-            var command = IoC.Resolve<ICommand>("Game.Queue.Get");
-
-            try
-            {
-                command.Execute();
-            }
-            catch (Exception e)
-            {
-                IoC.Resolve<ICommand>("ExceptionHandler.Handle", e).Execute();
-            }
-
-            return new EmptyCommand();
-        }
-
+        (object[] args) => new GameBehaviourCommand().Execute
         ).Execute();
     }
 }
