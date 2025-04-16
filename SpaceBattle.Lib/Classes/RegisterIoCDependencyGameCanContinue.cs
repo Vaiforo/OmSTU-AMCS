@@ -8,23 +8,14 @@ public class RegisterIoCDependencyGameCanContinue : ICommand
     {
         IoC.Resolve<ICommand>("IoC.Register",
         "Game.CanContinue",
-
         (object[] args) =>
         {
             var elapsedTime = (long)args[0];
-            var allowedTime = IoC.Resolve<Func<int>>("Game.AllowedTime.Get")();
-            var queueCount = IoC.Resolve<Func<int>>("Game.Queue.Count")();
+            var allowedTime = IoC.Resolve<int>("Game.AllowedTime.Get");
+            var queueCount = IoC.Resolve<int>("Game.Queue.Count");
 
-            if (elapsedTime < allowedTime && !(queueCount == 0))
-            {
-                return () => true;
-            }
-            else
-            {
-                return () => false;
-            }
+            return (object)(elapsedTime < allowedTime && !(queueCount == 0));
         }
-
         ).Execute();
     }
 }
