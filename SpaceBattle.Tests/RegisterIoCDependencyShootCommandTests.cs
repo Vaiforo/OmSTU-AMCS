@@ -1,5 +1,6 @@
 ﻿using Hwdtech;
 using Hwdtech.Ioc;
+using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
@@ -21,12 +22,11 @@ public class RegisterIoCDependencyShootCommandTests
     public void RegisterIoCDependencyShootCommandResolvePositiveTest()
     {
         new RegisterShootDependency().Execute();
-        var position = new Vector(new[] { 0, 0 });
-        var shootDirection = new Vector(new[] { 1, 1 });
-        var speed = 2.0;
-        var shootCommand = IoC.Resolve<ICommand>("Command.Shoot", position, shootDirection, speed);
+        var shootingObj = new Mock<IWeapon>().Object;
+        var resolvedCommand = IoC.Resolve<ICommand>("Command.Shoot", shootingObj);
 
-        Assert.IsType<ShootCommand>(shootCommand);
+        Assert.NotNull(resolvedCommand);
+        Assert.IsType<ShootCommand>(resolvedCommand);
     }
 
     [Fact]

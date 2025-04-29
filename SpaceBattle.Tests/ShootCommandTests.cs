@@ -23,11 +23,13 @@ namespace SpaceBattle.Lib.Tests
             var spawnPosition = new Vector(new[] { 0, 0 });
             var direction = new Vector(new[] { 2, 1 });
             var projectileSpeed = 2.0;
-            var weaponParameters = new WeaponParameters(spawnPosition, direction, projectileSpeed);
 
             var weaponMock = new Mock<IWeapon>();
+            weaponMock.Setup(w => w.SpawnPosition).Returns(spawnPosition);
+            weaponMock.Setup(w => w.Direction).Returns(direction);
+            weaponMock.Setup(w => w.ProjectileSpeed).Returns(projectileSpeed);
+
             var setupCommandMock = new Mock<ICommand>();
-            var addItemCommandMock = new Mock<ICommand>();
 
             IoC.Resolve<ICommand>(
                     "IoC.Register",
@@ -51,33 +53,19 @@ namespace SpaceBattle.Lib.Tests
 
             IoC.Resolve<ICommand>(
                     "IoC.Register",
-                    "Game.Item.Add",
+                    "Actions.Start",
                     (object[] args) =>
                     {
-                        return addItemCommandMock.Object;
+                        return setupCommandMock.Object;
                     }
                 )
                 .Execute();
 
-            var shootCommand = new ShootCommand(weaponParameters);
+            var shootCommand = new ShootCommand(weaponMock.Object);
             shootCommand.Execute();
 
-            weaponMock.Verify(
-                w =>
-                    w.Setup(
-                        It.Is<WeaponParameters>(p =>
-                            p.SpawnPosition == spawnPosition
-                            && p.Direction == direction
-                            && p.ProjectileSpeed == projectileSpeed
-                        )
-                    ),
-                Times.Once()
-            );
-
-            setupCommandMock.Verify(c => c.Execute(), Times.Once());
-            addItemCommandMock.Verify(c => c.Execute(), Times.Once());
-
             Assert.IsType<ShootCommand>(shootCommand);
+            setupCommandMock.Verify(c => c.Execute(), Times.Exactly(2));
         }
     }
 }

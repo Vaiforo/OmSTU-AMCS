@@ -2,36 +2,21 @@
 
 namespace SpaceBattle.Lib;
 
-public class WeaponParameters
-{
-    public Vector SpawnPosition { get; }
-    public Vector Direction { get; }
-    public double ProjectileSpeed { get; }
-
-    public WeaponParameters(Vector spawnPosition, Vector direction, double projectileSpeed)
-    {
-        SpawnPosition = spawnPosition;
-        Direction = direction;
-        ProjectileSpeed = projectileSpeed;
-    }
-}
-
 public class ShootCommand : ICommand
 {
-    private readonly WeaponParameters parameters;
+    private readonly IWeapon _weaponParams;
 
-    public ShootCommand(WeaponParameters parameters)
+    public ShootCommand(IWeapon obj)
     {
-        this.parameters = parameters;
+        _weaponParams = obj;
     }
 
     public void Execute()
     {
         var weaponObject = IoC.Resolve<IWeapon>("Weapon.Create");
 
-        weaponObject.Setup(parameters);
-        IoC.Resolve<ICommand>("Weapon.Setup", weaponObject).Execute();
+        IoC.Resolve<ICommand>("Weapon.Setup", weaponObject, _weaponParams).Execute();
 
-        IoC.Resolve<ICommand>("Game.Item.Add", weaponObject).Execute();
+        IoC.Resolve<ICommand>("Actions.Start", weaponObject).Execute();
     }
 }

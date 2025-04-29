@@ -2,5 +2,7 @@
 
 public interface IWeapon
 {
-    void Setup(WeaponParameters parameters);
+    Vector SpawnPosition { get; }
+    Vector Direction { get; }
+    double ProjectileSpeed { get; }
 }
