@@ -30,6 +30,7 @@ namespace SpaceBattle.Lib.Tests
             weaponMock.Setup(w => w.ProjectileSpeed).Returns(projectileSpeed);
 
             var setupCommandMock = new Mock<ICommand>();
+            var startCommandMock = new Mock<ICommand>();
 
             IoC.Resolve<ICommand>(
                     "IoC.Register",
@@ -56,7 +57,7 @@ namespace SpaceBattle.Lib.Tests
                     "Actions.Start",
                     (object[] args) =>
                     {
-                        return setupCommandMock.Object;
+                        return startCommandMock.Object;
                     }
                 )
                 .Execute();
@@ -65,7 +66,17 @@ namespace SpaceBattle.Lib.Tests
             shootCommand.Execute();
 
             Assert.IsType<ShootCommand>(shootCommand);
-            setupCommandMock.Verify(c => c.Execute(), Times.Exactly(2));
+            setupCommandMock.Verify(c => c.Execute(), Times.Once());
+            startCommandMock.Verify(c => c.Execute(), Times.Once());
+        }
+
+        [Fact]
+        public void Execute_ShouldThrowWhenDependencyNotRegistered()
+        {
+            var weaponParamsMock = new Mock<IWeapon>();
+            var shootCommand = new ShootCommand(weaponParamsMock.Object);
+
+            Assert.Throws<ArgumentException>(shootCommand.Execute);
         }
     }
 }
