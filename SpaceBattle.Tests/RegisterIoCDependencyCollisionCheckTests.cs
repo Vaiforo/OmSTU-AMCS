@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
 using SpaceBattle.Lib;
 
@@ -13,7 +13,7 @@ public class RegisterIoCDependencyCollisionCheckTests
                 "Scopes.Current.Set",
                 IoC.Resolve<object>("Scopes.New", IoC.Resolve<object>("Scopes.Root"))
             )
-            .Execute(); 
+            .Execute();
     }
 
     [Fact]

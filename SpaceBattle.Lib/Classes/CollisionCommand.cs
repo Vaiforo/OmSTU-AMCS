@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -18,7 +18,7 @@ public class CollisionCommand : ICommand
     {
         var deltaValues = IoC.Resolve<Array>("GetDeltaValues", _object1, _object2);
 
-        if(IoC.Resolve<bool>("Collision.Check", deltaValues))
+        if (IoC.Resolve<bool>("Collision.Check", deltaValues))
         {
             IoC.Resolve<ICommand>("Collision.Handle", _object1, _object2).Execute();
         }

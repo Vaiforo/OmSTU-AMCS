@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -20,7 +20,7 @@ public class RegisterIoCDependencyGetDeltaValues : ICommand
             var dVx = obj1.Velocity.GetCoords()[0] - obj2.Velocity.GetCoords()[0];
             var dVy = obj1.Velocity.GetCoords()[1] - obj2.Velocity.GetCoords()[1];
 
-            return new int[] {dX, dY, dVx, dVy};
+            return new int[] { dX, dY, dVx, dVy };
         }
         ).Execute();
     }

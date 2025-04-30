@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -17,12 +17,12 @@ public class RegisterIoCDependencyCollisionCheck : ICommand
 
             return (object)values.All(value =>
             {
-                if(tree is not IDictionary<int, object> dictionary)
+                if (tree is not IDictionary<int, object> dictionary)
                 {
                     return false;
                 }
 
-                if(!dictionary.TryGetValue(value, out var subTree))
+                if (!dictionary.TryGetValue(value, out var subTree))
                 {
                     return false;
                 }
