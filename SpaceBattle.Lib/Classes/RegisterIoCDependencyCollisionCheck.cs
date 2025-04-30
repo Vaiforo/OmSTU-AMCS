@@ -15,7 +15,7 @@ public class RegisterIoCDependencyCollisionCheck : ICommand
 
             var values = (int[])args[0];
 
-            return values.All(value =>
+            return (object)values.All(value =>
             {
                 if(tree is not IDictionary<int, object> dictionary)
                 {
