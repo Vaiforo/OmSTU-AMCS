@@ -6,7 +6,7 @@ public class CollisionService : ICommand
 {
     public void Execute()
     {
-        var grid = IoC.Resolve<ISpatialPartitionGrid>("Grid.Manager");
+        var grid = IoC.Resolve<ISpatialPartitionGrid>("Game.SpatialGrid");
 
         var allObjects = grid.GetAllOccupiedCells().SelectMany(grid.GetObjectsInCell).Distinct();
 

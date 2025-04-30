@@ -13,7 +13,7 @@ public class CollisionCheckCommand : ICommand
 
     public void Execute()
     {
-        var grid = IoC.Resolve<ISpatialPartitionGrid>("Grid.Manager");
+        var grid = IoC.Resolve<ISpatialPartitionGrid>("Game.SpatialGrid");
 
         var nearby = grid.GetNearby(_obj);
 
