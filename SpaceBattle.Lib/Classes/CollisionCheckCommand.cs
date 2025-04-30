@@ -26,7 +26,7 @@ public class CollisionCheckCommand : ICommand
 
             if (IoC.Resolve<bool>("Grid.CollisionDetector", $"{_obj}.{other}"))
             {
-                Console.WriteLine($"{_obj} collided with {other}");
+                IoC.Resolve<ICommand>("Grid.CollisionHandler", _obj, other).Execute();
             }
         }
     }
