@@ -35,7 +35,6 @@ public class CollisionServiceTests
             )
             .Execute();
 
-        // Вот сюда вставляешь заглушку для "Grid.CollisionDetector"
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
@@ -46,11 +45,11 @@ public class CollisionServiceTests
         var cmd = new CollisionCheckCommand(mockObj.Object);
 
         var writer = new StringWriter();
-        Console.SetOut(writer); // перехват вывода
+        Console.SetOut(writer);
 
         cmd.Execute();
 
         var output = writer.ToString();
-        Assert.Contains("collided", output); // Проверка, что сработал вывод
+        Assert.Contains("collided", output);
     }
 }

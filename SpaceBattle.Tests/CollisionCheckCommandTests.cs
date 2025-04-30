@@ -20,7 +20,6 @@ public class CollisionCheckCommandTests
     [Fact]
     public void CollisionCheckCommand_CollisionDetected_PrintsCollisionMessage()
     {
-        // Arrange
         var mockObj = new Mock<IMovingObject>();
         var mockOther = new Mock<IMovingObject>();
 
@@ -39,7 +38,6 @@ public class CollisionCheckCommandTests
             )
             .Execute();
 
-        // Stub CollisionDetector в IoC
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
@@ -49,14 +47,11 @@ public class CollisionCheckCommandTests
 
         var command = new CollisionCheckCommand(mockObj.Object);
 
-        // Перехват вывода в консоль
         using var sw = new StringWriter();
         Console.SetOut(sw);
 
-        // Act
         command.Execute();
 
-        // Assert
         var output = sw.ToString();
         Assert.Contains("ObjectA collided with ObjectB", output);
     }
@@ -64,7 +59,6 @@ public class CollisionCheckCommandTests
     [Fact]
     public void CollisionCheckCommand_NoCollision_NoOutput()
     {
-        // Arrange
         var mockObj = new Mock<IMovingObject>();
         var mockOther = new Mock<IMovingObject>();
 
@@ -83,7 +77,6 @@ public class CollisionCheckCommandTests
             )
             .Execute();
 
-        // Stub CollisionDetector, всегда false
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
@@ -96,10 +89,8 @@ public class CollisionCheckCommandTests
         using var sw = new StringWriter();
         Console.SetOut(sw);
 
-        // Act
         command.Execute();
 
-        // Assert
         var output = sw.ToString();
         Assert.DoesNotContain("collided", output);
     }

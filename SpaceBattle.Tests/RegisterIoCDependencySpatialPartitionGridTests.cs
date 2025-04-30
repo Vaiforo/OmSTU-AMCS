@@ -8,7 +8,6 @@ public class RegisterIoCDependencySpatialPartitionGridTests
 {
     public RegisterIoCDependencySpatialPartitionGridTests()
     {
-        // Инициализируем IoC и создаём новый скоуп
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<ICommand>(
                 "Scopes.Current.Set",
