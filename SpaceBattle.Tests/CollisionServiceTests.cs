@@ -18,38 +18,51 @@ public class CollisionServiceTests
     }
 
     [Fact]
-    public void CollisionServiceExecutesCollisionCheckCommandsForAllObjects()
+    public void CollisionServiceExecutesCollisionHandlers()
     {
-        var mockGrid = new Mock<ISpatialPartitionGrid>();
-        var mockObj = new Mock<IMovingObject>();
-        var mockOther = new Mock<IMovingObject>();
+        var obj1 = new Mock<IMovingObject>();
+        obj1.SetupGet(o => o.Position).Returns(new Vector(0, 0));
 
-        mockGrid
-            .Setup(g => g.GetNearby(mockObj.Object))
-            .Returns(new List<IMovingObject> { mockObj.Object, mockOther.Object });
+        var obj2 = new Mock<IMovingObject>();
+        obj2.SetupGet(o => o.Position).Returns(new Vector(1, 1));
+
+        var allObjects = new List<IMovingObject> { obj1.Object, obj2.Object };
+
+        var gridMock = new Mock<ISpatialPartitionGrid>();
+        gridMock.Setup(g => g.GetAllOccupiedCells()).Returns(new List<int[]> { new[] { 0, 0 } });
+        gridMock.Setup(g => g.GetObjectsInCell(It.IsAny<int[]>())).Returns(allObjects);
+        gridMock.Setup(g => g.GetNearby(It.IsAny<IMovingObject>())).Returns(allObjects);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => mockGrid.Object)
+                new Func<object[], object>(_ => gridMock.Object)
             )
             .Execute();
 
+        // Mock для коллизий — просто true
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
-                new Func<object[], object>(args => true)
+                new Func<object[], object>(_ => true)
             )
             .Execute();
 
-        var cmd = new CollisionCheckCommand(mockObj.Object);
+        // Handler, который мы будем проверять
+        var handlerMock = new Mock<ICommand>();
+        handlerMock.Setup(h => h.Execute());
 
-        var writer = new StringWriter();
-        Console.SetOut(writer);
+        IoC.Resolve<ICommand>(
+                "IoC.Register",
+                "Grid.CollisionHandler",
+                new Func<object[], object>(_ => handlerMock.Object)
+            )
+            .Execute();
 
+        var cmd = new CollisionService();
         cmd.Execute();
 
-        var output = writer.ToString();
-        Assert.Contains("collided", output);
+        // Должен вызваться дважды: (obj1,obj2) и (obj2,obёj1)
+        handlerMock.Verify(h => h.Execute(), Times.Exactly(2));
     }
 }
