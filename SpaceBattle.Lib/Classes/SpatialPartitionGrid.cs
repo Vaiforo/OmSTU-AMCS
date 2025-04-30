@@ -77,7 +77,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         return _cells.TryGetValue(Key(cell), out var list) ? list : [];
     }
 
-    private int[] GetCell(int[] position)
+    public int[] GetCell(int[] position)
     {
         var cell = new int[_dimensions];
         for (var i = 0; i < _dimensions; i++)
@@ -88,14 +88,14 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         return cell;
     }
 
-    private List<int[]> GetNeighborCells(int[] center)
+    public List<int[]> GetNeighborCells(int[] center)
     {
         var result = new List<int[]>();
         GenerateOffsets(_dimensions, new int[_dimensions], 0, center, result);
         return result;
     }
 
-    private static void GenerateOffsets(
+    public static void GenerateOffsets(
         int dim,
         int[] offset,
         int idx,
@@ -122,7 +122,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         }
     }
 
-    private void AddToCell(int[] cell, IMovingObject obj)
+    public void AddToCell(int[] cell, IMovingObject obj)
     {
         var key = Key(cell);
         if (!_cells.TryGetValue(key, out var list))
@@ -134,7 +134,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         list.Add(obj);
     }
 
-    private void RemoveFromCell(int[] cell, IMovingObject obj)
+    public void RemoveFromCell(int[] cell, IMovingObject obj)
     {
         var key = Key(cell);
         if (_cells.TryGetValue(key, out var list))
@@ -147,7 +147,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         }
     }
 
-    private static bool CellsEqual(int[] a, int[] b)
+    public static bool CellsEqual(int[] a, int[] b)
     {
         if (a.Length != b.Length)
         {
@@ -165,7 +165,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         return true;
     }
 
-    private static string Key(int[] cell) => string.Join(",", cell);
+    public static string Key(int[] cell) => string.Join(",", cell);
 
-    private int[] ParseKey(string key) => [.. key.Split(',').Select(int.Parse)];
+    public static int[] ParseKey(string key) => [.. key.Split(',').Select(int.Parse)];
 }

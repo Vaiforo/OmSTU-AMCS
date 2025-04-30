@@ -13,7 +13,7 @@ public class SpatialPartitionGridTests
     public SpatialPartitionGridTests()
     {
         _cellSize = 10.0;
-        _dimensions = 2; // Для 2D-решетки
+        _dimensions = 2;
         _spatialGrid = new SpatialPartitionGrid(_cellSize, _dimensions);
 
         _mockObject = new Mock<IMovingObject>();
@@ -22,73 +22,127 @@ public class SpatialPartitionGridTests
     }
 
     [Fact]
-    public void AddToGrid_ShouldAddObjectToCell()
+    public void AddToGridPositiveTest()
     {
-        // Act
         _spatialGrid.AddToGrid(_mockObject.Object);
 
-        // Assert
-        var cell = new int[] { 0, 0 }; // Для позиции (5,5) ячейка будет (0,0)
+        var cell = new int[] { 0, 0 };
         var objectsInCell = _spatialGrid.GetObjectsInCell(cell);
         Assert.Contains(_mockObject.Object, objectsInCell);
     }
 
     [Fact]
-    public void RemoveFromGrid_ShouldRemoveObjectFromCell()
+    public void RemoveFromGridPositiveTest()
     {
-        // Act
         _spatialGrid.AddToGrid(_mockObject.Object);
         _spatialGrid.RemoveFromGrid(_mockObject.Object);
 
-        // Assert
         var cell = new int[] { 0, 0 };
         var objectsInCell = _spatialGrid.GetObjectsInCell(cell);
         Assert.DoesNotContain(_mockObject.Object, objectsInCell);
     }
 
     [Fact]
-    public void UpdatePosition_ShouldMoveObjectToNewCell()
+    public void UpdatePositionPositiveTest()
     {
-        // Arrange
+        _mockObject.Setup(m => m.Position).Returns(new Vector(5, 5));
         _spatialGrid.AddToGrid(_mockObject.Object);
 
-        // Act
-        _mockObject.Setup(m => m.Position).Returns(new Vector(15, 15)); // Новый объект в другой ячейке
+        _mockObject.Setup(m => m.Position).Returns(new Vector(15, 15));
         _spatialGrid.UpdatePosition(_mockObject.Object);
 
-        // Assert
         var newCell = new int[] { 1, 1 };
         var objectsInNewCell = _spatialGrid.GetObjectsInCell(newCell);
         Assert.Contains(_mockObject.Object, objectsInNewCell);
     }
 
     [Fact]
-    public void GetNearby_ShouldReturnObjectsInNeighboringCells()
+    public void UpdatePositionSameCellTest()
     {
-        // Arrange
+        var position = new Vector(5, 5);
+        _mockObject.Setup(m => m.Position).Returns(position);
+
+        _spatialGrid.AddToGrid(_mockObject.Object);
+        _spatialGrid.UpdatePosition(_mockObject.Object);
+
+        var cell = new int[] { 0, 0 };
+        var objects = _spatialGrid.GetObjectsInCell(cell);
+        Assert.Single(objects);
+        Assert.Contains(_mockObject.Object, objects);
+    }
+
+    [Fact]
+    public void UpdatePositionObjectNotInGridInitiallyTest()
+    {
+        _mockObject.Setup(m => m.Position).Returns(new Vector(30, 30));
+
+        _spatialGrid.UpdatePosition(_mockObject.Object);
+
+        var cell = new int[] { 3, 3 };
+        var objects = _spatialGrid.GetObjectsInCell(cell);
+        Assert.Single(objects);
+        Assert.Contains(_mockObject.Object, objects);
+    }
+
+    [Fact]
+    public void UpdatePositionRemovesFromOldCellTest()
+    {
+        _mockObject.Setup(m => m.Position).Returns(new Vector(5, 5));
+        _spatialGrid.AddToGrid(_mockObject.Object);
+
+        _mockObject.Setup(m => m.Position).Returns(new Vector(20, 0));
+        _spatialGrid.UpdatePosition(_mockObject.Object);
+
+        var oldCell = new int[] { 0, 0 };
+        var newCell = new int[] { 2, 0 };
+
+        Assert.Empty(_spatialGrid.GetObjectsInCell(oldCell));
+        Assert.Contains(_mockObject.Object, _spatialGrid.GetObjectsInCell(newCell));
+    }
+
+    [Fact]
+    public void GetNearbyPositiveTest()
+    {
         _spatialGrid.AddToGrid(_mockObject.Object);
 
         var mockOtherObject = new Mock<IMovingObject>();
-        mockOtherObject.Setup(m => m.Position).Returns(new Vector(15, 5)); // Объект в соседней ячейке
+        mockOtherObject.Setup(m => m.Position).Returns(new Vector(15, 5));
         _spatialGrid.AddToGrid(mockOtherObject.Object);
 
-        // Act
         var nearbyObjects = _spatialGrid.GetNearby(_mockObject.Object);
 
-        // Assert
         Assert.Contains(mockOtherObject.Object, nearbyObjects);
     }
 
     [Fact]
-    public void GetAllOccupiedCells_ShouldReturnAllCellsWithObjects()
+    public void GetAllOccupiedCellsPositiveTest()
     {
-        // Arrange
         _spatialGrid.AddToGrid(_mockObject.Object);
 
-        // Act
         var occupiedCells = _spatialGrid.GetAllOccupiedCells();
 
-        // Assert
         Assert.Contains([0, 0], occupiedCells);
+    }
+
+    [Fact]
+    public void CellsEqualNegativeTest()
+    {
+        int[] a = [1, 2, 3];
+        int[] b = [1, 2];
+
+        var result = SpatialPartitionGrid.CellsEqual(a, b);
+
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void CellsEqualPositiveTest()
+    {
+        int[] a = [1, 2, 3];
+        int[] b = [1, 2, 3];
+
+        var result = SpatialPartitionGrid.CellsEqual(a, b);
+
+        Assert.True(result);
     }
 }
