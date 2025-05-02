@@ -7,6 +7,14 @@ namespace SpaceBattle.Tests;
 
 public class CollisionCheckCommandTests
 {
+    private class MockMovingObject(int[] coords) : IMovingObject
+    {
+        public Vector Position { get; set; } = new Vector(coords);
+        public Vector Velocity { get; } = new Vector(0, 0);
+
+        public override string ToString() => $"MockMovingObject_{GetHashCode()}";
+    }
+
     public CollisionCheckCommandTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
@@ -18,91 +26,122 @@ public class CollisionCheckCommandTests
     }
 
     [Fact]
-    public void CollisionDetected_ExecutesCollisionHandler()
+    public void CollisionCheckPositiveTest()
     {
-        var objA = new Mock<IMovingObject>();
-        var objB = new Mock<IMovingObject>();
+        var obj1 = new MockMovingObject([15, 25]);
+        var obj2 = new MockMovingObject([16, 26]);
+        var nearbyObjects = new List<IMovingObject> { obj2 };
 
         var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock
-            .Setup(g => g.GetNearby(objA.Object))
-            .Returns(new List<IMovingObject> { objA.Object, objB.Object });
+        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(_ => gridMock.Object)
+                new Func<object[], object>(args => gridMock.Object)
             )
             .Execute();
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
-                new Func<object[], object>(_ => true)
+                new Func<object[], object>(args => (string)args[0] == $"{obj1}.{obj2}")
             )
             .Execute();
 
         var handlerMock = new Mock<ICommand>();
-        handlerMock.Setup(h => h.Execute());
-
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionHandler",
                 new Func<object[], object>(args =>
-                {
-                    Assert.Equal(objA.Object, args[0]);
-                    Assert.Equal(objB.Object, args[1]);
-                    return handlerMock.Object;
-                })
+                    args[0] == obj1 && args[1] == obj2
+                        ? handlerMock.Object
+                        : throw new InvalidOperationException()
+                )
             )
             .Execute();
 
-        var command = new CollisionCheckCommand(objA.Object);
+        var cmd = new CollisionCheckCommand(obj1);
 
-        command.Execute();
+        cmd.Execute();
 
-        handlerMock.Verify(h => h.Execute(), Times.Once);
+        handlerMock.Verify(h => h.Execute(), Times.Once());
     }
 
     [Fact]
-    public void NoCollision_CollisionHandlerNotExecuted()
+    public void CollisionCheckNoCollisionPositiveTest()
     {
-        var objA = new Mock<IMovingObject>();
-        var objB = new Mock<IMovingObject>();
+        var obj1 = new MockMovingObject([15, 25]);
+        var obj2 = new MockMovingObject([16, 26]);
+        var nearbyObjects = new List<IMovingObject> { obj2 };
 
         var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock
-            .Setup(g => g.GetNearby(objA.Object))
-            .Returns(new List<IMovingObject> { objA.Object, objB.Object });
+        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(_ => gridMock.Object)
+                new Func<object[], object>(args => gridMock.Object)
             )
             .Execute();
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionDetector",
-                new Func<object[], object>(_ => false)
+                new Func<object[], object>(args => false)
             )
             .Execute();
 
         var handlerMock = new Mock<ICommand>();
-        handlerMock.Setup(h => h.Execute());
-
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Grid.CollisionHandler",
-                new Func<object[], object>(_ => handlerMock.Object)
+                new Func<object[], object>(args => handlerMock.Object)
             )
             .Execute();
 
-        var command = new CollisionCheckCommand(objA.Object);
+        var cmd = new CollisionCheckCommand(obj1);
 
-        command.Execute();
+        cmd.Execute();
 
-        handlerMock.Verify(h => h.Execute(), Times.Never);
+        handlerMock.Verify(h => h.Execute(), Times.Never());
+    }
+
+    [Fact]
+    public void CollisionCheckNoNearbyObjectsPositiveTest()
+    {
+        var obj1 = new MockMovingObject([15, 25]);
+        var nearbyObjects = new List<IMovingObject>();
+
+        var gridMock = new Mock<ISpatialPartitionGrid>();
+        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
+
+        IoC.Resolve<ICommand>(
+                "IoC.Register",
+                "Game.SpatialGrid",
+                new Func<object[], object>(args => gridMock.Object)
+            )
+            .Execute();
+
+        IoC.Resolve<ICommand>(
+                "IoC.Register",
+                "Grid.CollisionDetector",
+                new Func<object[], object>(args => false)
+            )
+            .Execute();
+
+        var handlerMock = new Mock<ICommand>();
+        IoC.Resolve<ICommand>(
+                "IoC.Register",
+                "Grid.CollisionHandler",
+                new Func<object[], object>(args => handlerMock.Object)
+            )
+            .Execute();
+
+        var cmd = new CollisionCheckCommand(obj1);
+
+        cmd.Execute();
+
+        handlerMock.Verify(h => h.Execute(), Times.Never());
     }
 }
