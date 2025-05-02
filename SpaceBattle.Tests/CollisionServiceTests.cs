@@ -43,7 +43,7 @@ public class CollisionServiceTests
         var checkCommands = new List<ICommand>();
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "Game.CollisionCheckCommand",
+                "Commands.CollisionCheckCommand",
                 new Func<object[], object>(args =>
                 {
                     var cmdMock = new Mock<ICommand>();
@@ -74,7 +74,7 @@ public class CollisionServiceTests
     }
 
     [Fact]
-    public void CollisionServiceNoObjectsTest()
+    public void CollisionServiceNoObjectsPositiveTest()
     {
         var objects = new List<IMovingObject>();
 
@@ -91,7 +91,7 @@ public class CollisionServiceTests
         var checkCommands = new List<ICommand>();
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "Game.CollisionCheckCommand",
+                "Commands.CollisionCheckCommand",
                 new Func<object[], object>(args =>
                 {
                     var cmdMock = new Mock<ICommand>();
@@ -122,7 +122,7 @@ public class CollisionServiceTests
     }
 
     [Fact]
-    public void CollisionServiceSingleObjectTest()
+    public void CollisionServiceSingleObjectPositiveTest()
     {
         var obj1 = new MockMovingObject([15, 25]);
         var objects = new List<IMovingObject> { obj1 };
@@ -140,7 +140,7 @@ public class CollisionServiceTests
         var checkCommands = new List<ICommand>();
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "Game.CollisionCheckCommand",
+                "Commands.CollisionCheckCommand",
                 new Func<object[], object>(args =>
                 {
                     var cmdMock = new Mock<ICommand>();

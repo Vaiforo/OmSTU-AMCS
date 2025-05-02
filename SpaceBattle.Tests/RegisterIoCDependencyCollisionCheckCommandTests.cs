@@ -24,7 +24,7 @@ public class RegisterIoCDependencyCollisionCheckCommandTests
 
         var mockObject = new Mock<IMovingObject>();
 
-        var command = IoC.Resolve<ICommand>("Game.CollisionCheckCommand", mockObject.Object);
+        var command = IoC.Resolve<ICommand>("Commands.CollisionCheckCommand", mockObject.Object);
 
         Assert.NotNull(command);
         Assert.IsType<CollisionCheckCommand>(command);

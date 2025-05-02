@@ -4,10 +4,10 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
 {
     private readonly Dictionary<int, List<IMovingObject>> _cells = [];
     private readonly Dictionary<IMovingObject, int> _objectCells = [];
-    private readonly double _cellSize;
+    private readonly int _cellSize;
     private readonly List<int[]> _neighborOffsets;
 
-    public SpatialPartitionGrid(double cellSize, int dimensions)
+    public SpatialPartitionGrid(int cellSize, int dimensions)
     {
         _cellSize = cellSize;
         _neighborOffsets = GenerateNeighborOffsets(dimensions);
@@ -123,7 +123,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
 
     public int[] GetCell(int[] position)
     {
-        return [.. position.Select((p, i) => (int)(p / _cellSize))];
+        return [.. position.Select((p, i) => p / _cellSize)];
     }
 
     public List<int[]> GetNeighborCells(int[] center)

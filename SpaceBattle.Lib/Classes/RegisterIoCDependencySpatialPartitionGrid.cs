@@ -11,7 +11,7 @@ public class RegisterIoCDependencySpatialPartitionGrid : ICommand
                 "Game.SpatialGrid",
                 (object[] args) =>
                 {
-                    var cellSize = (double)args[0];
+                    var cellSize = (int)args[0];
                     var dimensions = (int)args[1];
 
                     return new SpatialPartitionGrid(cellSize, dimensions);

@@ -21,7 +21,7 @@ public class RegisterIoCDependencySpatialPartitionGridTests
     {
         new RegisterIoCDependencySpatialPartitionGrid().Execute();
 
-        var grid = IoC.Resolve<SpatialPartitionGrid>("Game.SpatialGrid", 10.0, 2);
+        var grid = IoC.Resolve<SpatialPartitionGrid>("Game.SpatialGrid", 10, 2);
 
         Assert.NotNull(grid);
         Assert.IsType<SpatialPartitionGrid>(grid);

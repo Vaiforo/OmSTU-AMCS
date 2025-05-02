@@ -8,7 +8,7 @@ public class RegisterIoCDependencyCollisionCheckCommand : ICommand
     {
         IoC.Resolve<ICommand>(
                 "IoC.Register",
-                "Game.CollisionCheckCommand",
+                "Commands.CollisionCheckCommand",
                 (object[] args) =>
                 {
                     var obj = (IMovingObject)args[0];

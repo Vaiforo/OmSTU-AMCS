@@ -13,7 +13,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void AddToGridOneObjPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
 
         grid.AddToGrid(obj);
@@ -27,7 +27,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void AddToGridTwoObjPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([16, 26]);
 
@@ -44,7 +44,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void RemoveFromGridPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
         grid.AddToGrid(obj);
 
@@ -58,7 +58,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void RemoveFromGridNegativeTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
 
         grid.RemoveFromGrid(obj);
@@ -71,7 +71,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void UpdatePositionNoChangePositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
         grid.AddToGrid(obj);
 
@@ -87,7 +87,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void UpdatePositionChangedPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
         grid.AddToGrid(obj);
 
@@ -104,7 +104,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void UpdatePositionNegativeTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
 
         grid.UpdatePosition(obj);
@@ -116,7 +116,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetNearbyPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([16, 26]);
         grid.AddToGrid(obj1);
@@ -132,7 +132,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetNearbyDifCellsPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([25, 25]);
         grid.AddToGrid(obj1);
@@ -148,7 +148,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetNearbyEmptyPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
 
         var nearby = grid.GetNearby(obj);
@@ -159,7 +159,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetAllObjectsTwoObjPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([35, 45]);
         grid.AddToGrid(obj1);
@@ -175,7 +175,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetAllObjectsOneObjPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var obj = new MockMovingObject([15, 25]);
         grid.AddToGrid(obj);
 
@@ -189,7 +189,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetObjectsInCellEmptyPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var cell = new[] { 1, 2 };
 
         var objects = grid.GetObjectsInCell(cell);
@@ -200,7 +200,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetCellPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
 
         var cell = grid.GetCell([15, 25]);
 
@@ -210,7 +210,7 @@ public class SpatialPartitionGridTests
     [Fact]
     public void GetNeighborCellsPositiveTest()
     {
-        var grid = new SpatialPartitionGrid(10.0, 2);
+        var grid = new SpatialPartitionGrid(10, 2);
         var center = new[] { 1, 1 };
 
         var neighbors = grid.GetNeighborCells(center);
