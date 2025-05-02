@@ -15,19 +15,10 @@ public class CollisionCheckCommand : ICommand
     {
         var grid = IoC.Resolve<ISpatialPartitionGrid>("Game.SpatialGrid");
 
-        var nearby = grid.GetNearby(_obj);
-
-        foreach (var other in nearby)
-        {
-            if (other == _obj)
-            {
-                continue;
-            }
-
-            if (IoC.Resolve<bool>("Grid.CollisionDetector", $"{_obj}.{other}"))
-            {
-                IoC.Resolve<ICommand>("Grid.CollisionHandler", _obj, other).Execute();
-            }
-        }
+        grid.GetNearby(_obj)
+            .Where(other => IoC.Resolve<bool>("Grid.CollisionDetector", $"{_obj}.{other}"))
+            .Select(other => IoC.Resolve<ICommand>("Grid.CollisionHandler", _obj, other))
+            .ToList()
+            .ForEach(cmd => cmd.Execute());
     }
 }
