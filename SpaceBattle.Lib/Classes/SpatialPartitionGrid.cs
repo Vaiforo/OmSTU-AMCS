@@ -18,14 +18,11 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         return Enumerable
             .Range(0, dim)
             .Aggregate(
-                new List<int[]> { new int[dim] },
+                new[] { Array.Empty<int>() }.AsEnumerable(),
                 (acc, _) =>
-
-                    [
-                        .. acc.SelectMany(o =>
-                            Enumerable.Range(-1, 3).Select(d => o.Concat([d]).ToArray())
-                        ),
-                    ],
+                    acc.SelectMany(a =>
+                        Enumerable.Range(-1, 3).Select(d => a.Concat([d]).ToArray())
+                    ),
                 offsets => offsets.Where(offset => offset.Any(x => x != 0)).ToList()
             );
     }
@@ -58,7 +55,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         if (_objectCells.TryGetValue(obj, out var key) && _cells.TryGetValue(key, out var list))
         {
             list.Remove(obj);
-            if (list.Count != 0)
+            if (list.Count == 0)
             {
                 _cells.Remove(key);
             }
@@ -106,7 +103,7 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         var neighbors = GetNeighborCells(cell);
 
         var nearbyObjects = neighbors
-            .Select(neighbor => GetObjectsInCell(neighbor))
+            .Select(GetObjectsInCell)
             .Concat([GetObjectsInCell(cell).Where(o => o != obj)])
             .SelectMany(list => list)
             .ToList();
