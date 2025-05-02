@@ -114,6 +114,11 @@ public class SpatialPartitionGrid : ISpatialPartitionGrid
         return nearbyObjects;
     }
 
+    public IEnumerable<IMovingObject> GetAllObjects()
+    {
+        return _cells.Values.SelectMany(list => list);
+    }
+
     public List<IMovingObject> GetObjectsInCell(int[] cell)
     {
         return _cells.GetValueOrDefault(GetCellKey(cell), []);
