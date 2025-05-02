@@ -12,6 +12,6 @@ public class CollisionService : ICommand
             .Select(obj => IoC.Resolve<ICommand>("Game.CollisionCheckCommand", obj))
             .ToList();
 
-        new MacroCommand(commands).Execute();
+        IoC.Resolve<ICommand>("Commands.Macro", commands).Execute();
     }
 }
