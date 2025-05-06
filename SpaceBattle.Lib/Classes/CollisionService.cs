@@ -6,7 +6,7 @@ public class CollisionService : ICommand
 {
     public void Execute()
     {
-        var grid = IoC.Resolve<ISpatialPartitionGrid>("Game.SpatialGrid");
+        var grid = (SpatialPartitionGrid)IoC.Resolve<object>("Game.SpatialGrid");
 
         var commands = grid.GetAllObjects()
             .Select(obj => IoC.Resolve<ICommand>("Commands.CollisionCheckCommand", obj))

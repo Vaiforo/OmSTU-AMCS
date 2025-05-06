@@ -1,6 +1,5 @@
 ﻿using Hwdtech;
 using Hwdtech.Ioc;
-using Moq;
 using SpaceBattle.Lib;
 
 namespace SpaceBattle.Tests;
@@ -22,9 +21,9 @@ public class RegisterIoCDependencyCollisionServiceTests
     {
         new RegisterIoCDependencyCollisionService().Execute();
 
-        var mockGrid = new Mock<ISpatialPartitionGrid>();
+        var grid = new SpatialPartitionGrid(10, 2);
 
-        var service = IoC.Resolve<ICommand>("Game.CollisionService", mockGrid.Object);
+        var service = IoC.Resolve<ICommand>("Game.CollisionService", grid);
 
         Assert.NotNull(service);
         Assert.IsType<CollisionService>(service);

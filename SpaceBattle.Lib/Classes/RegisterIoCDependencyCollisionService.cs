@@ -11,7 +11,7 @@ public class RegisterIoCDependencyCollisionService : ICommand
                 "Game.CollisionService",
                 (object[] args) =>
                 {
-                    var grid = (ISpatialPartitionGrid)args[0];
+                    var grid = (SpatialPartitionGrid)args[0];
                     return new CollisionService();
                 }
             )

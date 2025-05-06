@@ -1,6 +1,6 @@
 ﻿namespace SpaceBattle.Lib;
 
-public class SpatialPartitionGrid : ISpatialPartitionGrid
+public class SpatialPartitionGrid
 {
     private readonly Dictionary<int, List<IMovingObject>> _cells = [];
     private readonly Dictionary<IMovingObject, int> _objectCells = [];

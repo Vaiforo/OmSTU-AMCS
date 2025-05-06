@@ -30,15 +30,14 @@ public class CollisionCheckCommandTests
     {
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([16, 26]);
-        var nearbyObjects = new List<IMovingObject> { obj2 };
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
+        var grid = new SpatialPartitionGrid(10, 2);
+        grid.AddToGrid(obj1);
+        grid.AddToGrid(obj2);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 
@@ -73,15 +72,14 @@ public class CollisionCheckCommandTests
     {
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([16, 26]);
-        var nearbyObjects = new List<IMovingObject> { obj2 };
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
+        var grid = new SpatialPartitionGrid(10, 2);
+        grid.AddToGrid(obj1);
+        grid.AddToGrid(obj2);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 
@@ -111,15 +109,13 @@ public class CollisionCheckCommandTests
     public void CollisionCheckNoNearbyObjectsPositiveTest()
     {
         var obj1 = new MockMovingObject([15, 25]);
-        var nearbyObjects = new List<IMovingObject>();
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetNearby(obj1)).Returns(nearbyObjects);
+        var grid = new SpatialPartitionGrid(10, 2);
+        grid.AddToGrid(obj1);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 

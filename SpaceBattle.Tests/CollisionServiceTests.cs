@@ -28,15 +28,14 @@ public class CollisionServiceTests
     {
         var obj1 = new MockMovingObject([15, 25]);
         var obj2 = new MockMovingObject([35, 45]);
-        var objects = new List<IMovingObject> { obj1, obj2 };
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetAllObjects()).Returns(objects);
+        var grid = new SpatialPartitionGrid(10, 2);
+        grid.AddToGrid(obj1);
+        grid.AddToGrid(obj2);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 
@@ -76,15 +75,12 @@ public class CollisionServiceTests
     [Fact]
     public void CollisionServiceNoObjectsPositiveTest()
     {
-        var objects = new List<IMovingObject>();
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetAllObjects()).Returns(objects);
+        var grid = new SpatialPartitionGrid(10, 2);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 
@@ -125,15 +121,13 @@ public class CollisionServiceTests
     public void CollisionServiceSingleObjectPositiveTest()
     {
         var obj1 = new MockMovingObject([15, 25]);
-        var objects = new List<IMovingObject> { obj1 };
-
-        var gridMock = new Mock<ISpatialPartitionGrid>();
-        gridMock.Setup(g => g.GetAllObjects()).Returns(objects);
+        var grid = new SpatialPartitionGrid(10, 2);
+        grid.AddToGrid(obj1);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
                 "Game.SpatialGrid",
-                new Func<object[], object>(args => gridMock.Object)
+                new Func<object[], object>(args => grid)
             )
             .Execute();
 

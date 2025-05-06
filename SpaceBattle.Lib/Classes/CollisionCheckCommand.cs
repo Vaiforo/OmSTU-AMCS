@@ -13,7 +13,7 @@ public class CollisionCheckCommand : ICommand
 
     public void Execute()
     {
-        var grid = IoC.Resolve<ISpatialPartitionGrid>("Game.SpatialGrid");
+        var grid = (SpatialPartitionGrid)IoC.Resolve<object>("Game.SpatialGrid");
 
         grid.GetNearby(_obj)
             .Where(other => IoC.Resolve<bool>("Grid.CollisionDetector", $"{_obj}.{other}"))
