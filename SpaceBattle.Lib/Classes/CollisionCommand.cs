@@ -4,11 +4,11 @@ namespace SpaceBattle.Lib;
 
 public class CollisionCommand : ICommand
 {
-    private readonly IMovingObject _object1;
+    private readonly object _object1;
 
-    private readonly IMovingObject _object2;
+    private readonly object _object2;
 
-    public CollisionCommand(IMovingObject object1, IMovingObject object2)
+    public CollisionCommand(object object1, object object2)
     {
         _object1 = object1;
         _object2 = object2;
@@ -16,9 +16,7 @@ public class CollisionCommand : ICommand
 
     public void Execute()
     {
-        var deltaValues = IoC.Resolve<Array>("GetDeltaValues", _object1, _object2);
-
-        if (IoC.Resolve<bool>("Collision.Check", deltaValues))
+        if (IoC.Resolve<bool>("Collision.Check", _object1, _object2))
         {
             IoC.Resolve<ICommand>("Collision.Handle", _object1, _object2).Execute();
         }
