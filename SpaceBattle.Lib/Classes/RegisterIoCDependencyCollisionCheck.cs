@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -16,8 +15,6 @@ public class RegisterIoCDependencyCollisionCheck : ICommand
             var object2 = args[1];
 
             var (values, treeType) = IoC.Resolve<(int[], string)>("Collision.Get.DeltaValuesAndTreeType", object1, object2);
-
-            Debug.WriteLine($"{values}");
 
             object tree = IoC.Resolve<IDictionary<int, object>>($"Collision.Get.Tree.{treeType}");
 
