@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 using Scriban;
 
 namespace SpaceBattle.Lib;
