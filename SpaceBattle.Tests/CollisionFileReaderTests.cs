@@ -26,7 +26,6 @@ public class CollisionFileReaderTests
 
         var collisions = CollisionFileReader.ReadCollisions(tempFile).ToList();
 
-        // Assert
         Assert.Empty(collisions);
 
         File.Delete(tempFile);
