@@ -1,4 +1,4 @@
-using Hwdtech;
+﻿using Hwdtech;
 
 namespace SpaceBattle.Lib;
 
@@ -19,8 +19,8 @@ public class RegisterIoCDependencyDeltaValuesAndTreeType : ICommand
 
             var typeOrder = IoC.Resolve<IDictionary<(string, string), string>>("Collision.Get.typeOrder");
 
-            var referenceType = typeOrder.TryGetValue((type1, type2), out var rt) ? 
-            rt : typeOrder.TryGetValue((type2, type1), out rt) ? 
+            var referenceType = typeOrder.TryGetValue((type1, type2), out var rt) ?
+            rt : typeOrder.TryGetValue((type2, type1), out rt) ?
             rt : type1;
 
             var referenceObject = referenceType == type1 ? object1 : object2;
