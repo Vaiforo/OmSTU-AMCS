@@ -8,7 +8,7 @@ public class RegisterIoCDependencyDeltaValuesAndTreeType : ICommand
     {
         IoC.Resolve<ICommand>(
         "IoC.Register",
-        "Collision.Get.TreeType",
+        "Collision.Get.DeltaValuesAndTreeType",
         (object[] args) =>
         {
             var object1 = args[0];
@@ -36,7 +36,7 @@ public class RegisterIoCDependencyDeltaValuesAndTreeType : ICommand
                 .Zip(positionOther, (r, o) => r - o)
                 .Concat(velocityReference
                 .Zip(velocityOther, (r, o) => r - o))
-                .ToArray();
+                 .ToArray();
 
             return (object)(deltaValues, $"{referenceType}{(referenceType == type1 ? type2 : type1)}");
         }
