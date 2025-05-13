@@ -5,44 +5,42 @@ public class CollisionAddToStorageCommandTests
     [Fact]
     public void Execute_AddsCollisionsToStorage()
     {
-        var storage = new Dictionary<(string, string), List<(int, int, int, int)>>();
+        var storageDict = new Dictionary<(string, string), List<(int, int, int, int)>>();
+        var storage = new CollisionStorage(storageDict);
         var collisions = new List<(int, int, int, int)> { (1, 2, 3, 4), (5, 6, 7, 8) };
-        var command = new CollisionAddToStorageCommand(
-            new object[] { "ship", "asteroid", collisions, storage }
-        );
+        var command = new CollisionAddToStorageCommand("ship", "asteroid", collisions, storage);
 
         command.Execute();
 
-        Assert.True(storage.ContainsKey(("ship", "asteroid")));
-        Assert.Equal(collisions, storage[("ship", "asteroid")]);
+        Assert.True(storageDict.ContainsKey(("ship", "asteroid")));
+        Assert.Equal(collisions, storageDict[("ship", "asteroid")]);
     }
 
     [Fact]
     public void Execute_OverwritesExistingKey()
     {
-        var storage = new Dictionary<(string, string), List<(int, int, int, int)>>();
-        storage[("ship", "asteroid")] = new List<(int, int, int, int)> { (0, 0, 0, 0) };
+        var storageDict = new Dictionary<(string, string), List<(int, int, int, int)>>();
+        storageDict[("ship", "asteroid")] = new List<(int, int, int, int)> { (0, 0, 0, 0) };
+        var storage = new CollisionStorage(storageDict);
         var newCollisions = new List<(int, int, int, int)> { (1, 2, 3, 4), (5, 6, 7, 8) };
-        var command = new CollisionAddToStorageCommand(
-            new object[] { "ship", "asteroid", newCollisions, storage }
-        );
+        var command = new CollisionAddToStorageCommand("ship", "asteroid", newCollisions, storage);
 
         command.Execute();
 
-        Assert.Equal(newCollisions, storage[("ship", "asteroid")]);
+        Assert.Equal(newCollisions, storageDict[("ship", "asteroid")]);
     }
 
     [Fact]
-    public void Constructor_InvalidArgs_ThrowsException()
+    public void Execute_UsesInterfaceCorrectly()
     {
-        var invalidArgs = new object[]
-        {
-            123,
-            "asteroid",
-            new List<(int, int, int, int)>(),
-            new Dictionary<(string, string), List<(int, int, int, int)>>(),
-        };
+        var storageDict = new Dictionary<(string, string), List<(int, int, int, int)>>();
+        var storage = new CollisionStorage(storageDict);
+        var collisions = new List<(int, int, int, int)> { (1, 2, 3, 4) };
+        var command = new CollisionAddToStorageCommand("ship", "asteroid", collisions, storage);
 
-        Assert.Throws<InvalidCastException>(() => new CollisionAddToStorageCommand(invalidArgs));
+        command.Execute();
+
+        Assert.Single(storageDict);
+        Assert.Equal(collisions, storageDict[("ship", "asteroid")]);
     }
 }

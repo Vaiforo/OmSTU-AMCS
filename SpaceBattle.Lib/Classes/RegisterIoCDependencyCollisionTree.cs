@@ -7,6 +7,7 @@ public class RegisterIoCDependencyTree : ICommand
     public void Execute()
     {
         var collisionStorage = new Dictionary<(string, string), List<(int, int, int, int)>>();
+        var storage = new CollisionStorage(collisionStorage);
 
         IoC.Resolve<ICommand>(
                 "IoC.Register",
@@ -36,12 +37,10 @@ public class RegisterIoCDependencyTree : ICommand
                 "Collisions.Add",
                 (object[] args) =>
                 {
-                    var form1 = args[0];
-                    var form2 = args[1];
+                    var form1 = (string)args[0];
+                    var form2 = (string)args[1];
                     var collisions = (List<(int, int, int, int)>)args[2];
-                    return new CollisionAddToStorageCommand(
-                        new object[] { form1, form2, collisions, collisionStorage }
-                    );
+                    return new CollisionAddToStorageCommand(form1, form2, collisions, storage);
                 }
             )
             .Execute();
