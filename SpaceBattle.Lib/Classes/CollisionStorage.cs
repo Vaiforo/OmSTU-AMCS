@@ -13,4 +13,9 @@ public class CollisionStorage : ICollisionStorage
     {
         _storage[(form1, form2)] = collisions;
     }
+
+    public bool TryGetCollisions(string form1, string form2, out List<(int, int, int, int)> collisions)
+    {
+        return _storage.TryGetValue((form1, form2), out collisions!);
+    }
 }
