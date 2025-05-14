@@ -11,12 +11,4 @@
     <PackageReference Include="Hwdtech.Ioc.ScopeBasedIoCImplementation" Version="1.0.0" />
     <PackageReference Include="Scriban" Version="6.2.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Update="..\SpaceBattle.Lib\Templates\AdapterTemplate.scriban">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <Link>AdapterTemplate.scriban</Link>
-    </None>
-  </ItemGroup>
-
 </Project>

@@ -10,25 +10,6 @@ class {{target}}Adapter : {{target}}
     }
 
     {{ for member in members }}
-    {{ if member.is_property }}
-    public {{member.type}} {{member.name}}
-    {
-        {{ if member.can_get }}
-        get => IoC.Resolve<{{member.type}}>("Object.GetProperty", "{{member.name}}", _adaptee);
-        {{ end }}
-        {{ if member.can_set }}
-        set => IoC.Resolve<ICommand>("Object.SetProperty", "{{member.name}}", _adaptee, value).Execute();
-        {{ end }}
-    }
-    {{ else if member.is_method }}
-    public {{member.return_type}} {{member.name}}({{ for param in member.parameters }}{{param.type}} {{param.name}}{{ if !param.is_last }}, {{ end }}{{ end }})
-    {
-        var command = IoC.Resolve<ICommand>("Adapter.{{member.name}}", _adaptee{{ for param in member.parameters }}, {{param.name}}{{ end }});
-        command.Execute();
-        {{ if member.return_type != "void" }}
-        return IoC.Resolve<{{member.return_type}}>("Adapter.{{member.name}}.Result", _adaptee);
-        {{ end }}
-    }
-    {{ end }}
+        {{member}}
     {{ end }}
 }
