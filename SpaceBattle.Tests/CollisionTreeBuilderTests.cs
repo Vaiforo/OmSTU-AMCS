@@ -1,7 +1,7 @@
-﻿using SpaceBattle.Lib;
-using Moq;
-using Hwdtech;
+﻿using Hwdtech;
 using Hwdtech.Ioc;
+using Moq;
+using SpaceBattle.Lib;
 
 public class CollisionTreeBuilderTests
 {
