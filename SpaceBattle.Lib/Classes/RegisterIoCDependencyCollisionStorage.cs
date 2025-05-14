@@ -2,7 +2,7 @@
 
 namespace SpaceBattle.Lib;
 
-public class RegisterIoCDependencyTree : ICommand
+public class RegisterIoCDependencyStorage : ICommand
 {
     public void Execute()
     {

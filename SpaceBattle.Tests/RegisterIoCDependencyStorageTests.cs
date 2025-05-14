@@ -3,9 +3,9 @@ using Hwdtech.Ioc;
 using Moq;
 using SpaceBattle.Lib;
 
-public class RegisterIoCDependencyTreeTests
+public class RegisterIoCDependencyStorageTests
 {
-    public RegisterIoCDependencyTreeTests()
+    public RegisterIoCDependencyStorageTests()
     {
         new InitScopeBasedIoCImplementationCommand().Execute();
         IoC.Resolve<ICommand>(
@@ -18,7 +18,7 @@ public class RegisterIoCDependencyTreeTests
     [Fact]
     public void Execute_RegistersAllCommands()
     {
-        var registerCommand = new RegisterIoCDependencyTree();
+        var registerCommand = new RegisterIoCDependencyStorage();
         registerCommand.Execute();
 
         IoC.Resolve<ICommand>("IoC.Register", "Collisions.CreateFromFile", It.IsAny<object>());
@@ -33,7 +33,7 @@ public class RegisterIoCDependencyTreeTests
     {
         var quadruples = new List<(int, int, int, int)> { (1, 2, 3, 4), (5, 6, 7, 8) };
 
-        var register = new RegisterIoCDependencyTree();
+        var register = new RegisterIoCDependencyStorage();
 
         register.Execute();
 
@@ -51,7 +51,7 @@ public class RegisterIoCDependencyTreeTests
         var tempFile = Path.GetTempFileName();
         File.WriteAllLines(tempFile, new[] { "1,2,3,4", "5,6,7,8" });
 
-        var register = new RegisterIoCDependencyTree();
+        var register = new RegisterIoCDependencyStorage();
 
         register.Execute();
 
@@ -74,7 +74,7 @@ public class RegisterIoCDependencyTreeTests
 
         var quadruples = new List<(int, int, int, int)> { (1, 2, 3, 4), (5, 6, 7, 8) };
 
-        var register = new RegisterIoCDependencyTree();
+        var register = new RegisterIoCDependencyStorage();
 
         register.Execute();
         var testCommand = IoC.Resolve<ICommand>("Collisions.Add", form1, form2, quadruples);
