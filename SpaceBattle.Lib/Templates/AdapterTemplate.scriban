@@ -1,0 +1,15 @@
+using Hwdtech;
+
+class {{target}}Adapter : {{target}}
+{
+    private IDictionary<string, object> _adaptee;
+
+    public {{target}}Adapter(IDictionary<string, object> adaptee)
+    {
+        _adaptee = adaptee ?? throw new ArgumentNullException(nameof(adaptee));
+    }
+
+    {{ for member in members }}
+        {{member}}
+    {{ end }}
+}
